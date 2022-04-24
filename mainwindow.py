@@ -1,14 +1,10 @@
-"""
-Example script for testing the Sun Valley theme
-Author: rdbende
-License: GNU GPLv3 license
-Source: https://github.com/rdbende/ttk-widget-factory
-"""
-
-
 import tkinter as tk
 from tkinter import ttk
 import sv_ttk
+from matplotlib import pyplot as plt
+from PIL import ImageTk, Image
+
+import server
 
 
 
@@ -21,19 +17,39 @@ class App(ttk.Frame):
             self.columnconfigure(index=index, weight=1)
             self.rowconfigure(index=index, weight=1)
 
+        self.option_menu_list = ["", "OptionMenu", "Option 1", "Option 2"]
+        self.combo_list = ["Combobox", "Editable item 1", "Editable item 2"]
+        self.readonly_combo_list = ["Readonly combobox", "Item 1", "Item 2"]
+
         # Create widgets :)
         self.setup_widgets()
 
     def setup_widgets(self):
         # Create a Frame for the Checkbuttons
-        self.check_frame = ttk.LabelFrame(self, text="Checkbuttons", padding=(20, 10))
-        self.check_frame.grid(
-            row=0, column=0, padx=(80, 10), pady=(20, 10), sticky="nsew"
+
+
+        self.widgets_frame = ttk.Frame(self, padding=(0, 0, 0, 10))
+        self.widgets_frame.grid(
+            row=0, column=1, padx=10, pady=(30, 10), sticky="nsew", rowspan=3
         )
+        self.widgets_frame.columnconfigure(index=0, weight=1)
+
+        self.accentbutton = ttk.Button(
+            self.widgets_frame, text="Make photo", style="Accent.TButton",command =(lambda: self.make_photo())
+        )
+        self.accentbutton.grid(row=7, column=0, padx=5, pady=20, sticky="nsew")
+
 
         self.sizegrip = ttk.Sizegrip(self)
         self.sizegrip.grid(row=100, column=100, padx=(0, 5), pady=(0, 5))
 
+    def make_photo(self):
+        image = server.run()
+        image = image.resize((1000, 800), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(image)
+        panel = ttk.Label(self.widgets_frame, image=img)
+        panel.grid(row=20, column=0, padx=5, pady=80, sticky="nsew")
+        panel.image = img
 
 
 if __name__ == "__main__":
