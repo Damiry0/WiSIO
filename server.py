@@ -3,10 +3,12 @@ import socket
 import struct
 from PIL import Image
 import matplotlib.pyplot as pl
+from subprocess import Popen
 
 server_socket = socket.socket()
 server_socket.bind(('', 8000))  # ADD IP HERE
 server_socket.listen(0)
+p = Popen(['sh', './login.sh'])
 
 # Accept a single connection and make a file-like object out of it
 connection = server_socket.accept()[0].makefile('rb')
