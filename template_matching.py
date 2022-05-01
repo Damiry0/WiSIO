@@ -9,7 +9,6 @@
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
-color = (0, 255, 0)
 img = cv.imread('boards/3defects.jpg',0)
 img2 = img.copy()
 template = cv.imread('boards/part.jpg',0)
