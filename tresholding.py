@@ -23,7 +23,7 @@ class Fragment:
 
 
 # Function dividing an image into tiles.
-# Tiles are saved in given location as images
+# Tiles are saved in given location as images.
 def tile(filename, dir_out, tile_list, div_w=10, div_h=10):
     """
     @param filename: name of the photo that needs to be divided
@@ -31,7 +31,7 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10):
     @param tile_list: a list in which names and offset of the tiles will be saved
     @param div_w: divider of image width
     @param div_h: divider of image height
-    @return:
+    @return: number of tiles
     """
     name, ext = os.path.splitext(filename)
     img = Image.open(filename)
