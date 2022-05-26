@@ -50,55 +50,57 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10):
 
 
 list_of_frames = []
-number_of_photos = tile("dobra_wycieta.png", "output/", list_of_frames)
-print(range(number_of_photos))
+number_of_tiles = tile("dobra_wycieta.png", "output/", list_of_frames)
+print(range(number_of_tiles))
 
 
-for i in range(number_of_photos):
-    haystack_img = cv.imread('zla_wycieta.png', 0)
-    needle_img = cv.imread(f'output/dobra_wycieta_{i}.png', 0)
+def needle_in_hay_stack(haystack_name, needle_name, number_of_photos):
 
-    result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
+    for i in range(number_of_photos):
+        haystack_img = cv.imread(haystack_name, 0)
+        needle_img = cv.imread(''.join([needle_name, f'_{i}.png']), 0)
 
-    # I've inverted the threshold and where comparison to work with TM_SQDIFF_NORMED
-    threshold = 0.07
-    locations = np.where(result <= threshold)
-    list2 = [None] * len(locations[0])
-    # Writing nescessary data to a seperate list
-    for i in range(len(locations[0])):
-        list2[i] = result[locations[0][i]][locations[1][i]]
+        result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
 
-    # We can zip those up into a list of (x, y) position tuples
-    locations = list(zip(*locations[::1]))
-    list1 = [None] * len(locations)
-    # Zipping a new list for later iteration in loop
-    locations1 = np.where(result <= threshold)
-    locations1 = list(zip(*locations1[::-1]))
+        # I've inverted the threshold and ???where??? comparison to work with TM_SQDIFF_NORMED
+        threshold = 0.07
+        locations = np.where(result <= threshold)
+        list2 = [None] * len(locations[0])
+        # Writing necessary data to a separate list
+        for i in range(len(locations[0])):
+            list2[i] = result[locations[0][i]][locations[1][i]]
+        # We can zip those up into a list of (x, y) position tuples
+        locations = list(zip(*locations[::1]))
+        list1 = [None] * len(locations)
+        # Zipping a new list for later iteration in loop
+        locations1 = np.where(result <= threshold)
+        locations1 = list(zip(*locations1[::-1]))
 
-    if locations1:
-        # Getting index of most similar image
-        location_index = list2.index(min(list2))
-        location = locations1[location_index]
-        print('Found needle.')
+        if locations1:
+            # Getting index of most similar image
+            location_index = list2.index(min(list2))
+            location = locations1[location_index]
+            print('Found needle.')
 
-        needle_w = needle_img.shape[1]
-        needle_h = needle_img.shape[0]
-        line_color = (120, 120, 0)
-        line_type = cv.LINE_4
-        # Drawing a rectangle
-        # Determine the box positions
-        top_left = location
-        bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
-        # Draw the box
-        cv.rectangle(haystack_img, top_left, bottom_right, line_color, line_type)
-        res=cv.resize(haystack_img,(960,540))
-        cv.imshow('Matches', res)
-        cv.waitKey()
+            needle_w = needle_img.shape[1]
+            needle_h = needle_img.shape[0]
+            line_color = (120, 120, 0)
+            line_type = cv.LINE_4
+            # Drawing a rectangle
+            # Determine the box positions
+            top_left = location
+            bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
+            # Draw the box
+            cv.rectangle(haystack_img, top_left, bottom_right, line_color, line_type)
+            res = cv.resize(haystack_img, (960, 540))
+            cv.imshow('Matches', res)
+            cv.waitKey()
 
-    else:
-        print('Needle not found.')
+        else:
+            print('Needle not found.')
 
 
+needle_in_hay_stack('zla_wycieta.png', 'output/dobra_wycieta', number_of_tiles)
 
 
 
