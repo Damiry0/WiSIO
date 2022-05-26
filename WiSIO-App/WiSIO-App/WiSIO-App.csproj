@@ -19,7 +19,15 @@
     <DefineConstants>TRACE;Core</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Images\icon.ico" />
+    <None Remove="Images\letter-w.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="HandyControls" Version="3.3.10" />
     <PackageReference Include="SSH.NET" Version="2020.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\icon.ico" />
+    <Resource Include="Images\letter-w.ico" />
   </ItemGroup>
 </Project>
