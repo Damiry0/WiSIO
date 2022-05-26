@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Renci.SshNet;
 
 namespace WiSIO_App.Pages
 {
@@ -28,7 +30,29 @@ namespace WiSIO_App.Pages
 
         private void ButtonMakePhoto_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            using (var client = new SshClient("192.168.1.14", "pi", "hehexdxd"))
+            {
+                client.Connect();
+                client.RunCommand("cd WiSIO");
+                client.RunCommand("python3 make_photo.py");
+                client.Disconnect();
+            }
+            var path = ProjectSourcePath.Value + "\\picture2.jpg";
+            using (var client = new ScpClient("192.168.1.14", "pi", "hehexdxd"))
+            {
+                client.Connect();
+                using (Stream localFile = File.Create(path))
+                {
+                    client.Download("/tmp/picture.jpg", localFile);
+                }
+
+            }
+            var bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri(path, UriKind.Absolute);
+            bi3.EndInit();
+            BoardImage.Source = bi3;
+            BoardImage.Visibility = Visibility.Visible;
         }
 
         private void ButtonFileSelect_OnClick(object sender, RoutedEventArgs e)

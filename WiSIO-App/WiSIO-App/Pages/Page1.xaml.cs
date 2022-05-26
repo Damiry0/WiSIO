@@ -30,14 +30,28 @@ namespace WiSIO_App.Pages
 
         private void ButtonMakePhoto_OnClick(object sender, RoutedEventArgs e)
         {
-            using (var client = new SshClient("192.168.1.14", "pi", ":)"))
+            using (var client = new SshClient("192.168.1.14", "pi", "hehexdxd"))
             {
                 client.Connect();
                 client.RunCommand("cd WiSIO");
-                client.RunCommand("python3 client.py");
-                client.RunCommand("exit");
+                client.RunCommand("python3 make_photo.py");
                 client.Disconnect();
             }
+            var path = ProjectSourcePath.Value + "\\picture1.jpg";
+            using (var client = new ScpClient("192.168.1.14", "pi", "hehexdxd"))
+            {
+                client.Connect();
+                using (Stream localFile = File.Create(path))
+                {
+                    client.Download("/tmp/picture.jpg", localFile);
+                }
+
+            }
+            var bi3 = new BitmapImage();
+            bi3.BeginInit();
+            bi3.UriSource = new Uri(path, UriKind.Absolute);
+            bi3.EndInit();
+            BoardImage.Source = bi3;
             BoardImage.Visibility = Visibility.Visible;
         }
 
