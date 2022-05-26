@@ -4,11 +4,13 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WiSIO_App.Pages"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page3">
 
     <Grid>
-        
+        <TextBox Style="{StaticResource TextBoxExtend}" Name="Field"  hc:InfoElement.Title="Ilosc podobrazków:" hc:InfoElement.Necessary="True" VerticalAlignment="Top" Margin="45,255,480,0"/>
+
     </Grid>
 </Page>

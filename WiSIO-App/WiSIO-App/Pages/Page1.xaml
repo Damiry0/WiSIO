@@ -13,9 +13,6 @@
         <hc:ProgressButton Name="ButtonMakePhoto" Click="ButtonMakePhoto_OnClick" Style="{StaticResource ProgressButtonDanger}" IsChecked="{Binding IsUploading,Mode=TwoWay}" Progress="{Binding Progress}" Content="Wykonaj zdjęcie" Width="180" Margin="95,370,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
         <Image Name="BoardImage" Visibility="Hidden" HorizontalAlignment="Left" Height="315" Margin="60,40,0,0" VerticalAlignment="Top" Width="660"/>
         <Button Click="ButtonFileSelect_OnClick" Name="ButtonFileSelect" Content="Wybierz z pliku" HorizontalAlignment="Left" Margin="442,365,0,0" VerticalAlignment="Top"/>
-
-
-
     </Grid>
 
 </Page>
