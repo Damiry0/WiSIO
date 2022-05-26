@@ -27,7 +27,6 @@
     <PackageReference Include="SSH.NET" Version="2020.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\icon.ico" />
     <Resource Include="Images\letter-w.ico" />
   </ItemGroup>
 </Project>
