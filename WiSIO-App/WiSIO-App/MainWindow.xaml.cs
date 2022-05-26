@@ -26,6 +26,7 @@ namespace WiSIO_App
                 new Page2(),
                 new Page3(),
                 new Page4(),
+                new Page5(),
             };
         }
 
