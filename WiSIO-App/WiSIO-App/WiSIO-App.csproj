@@ -20,5 +20,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HandyControls" Version="3.3.10" />
+    <PackageReference Include="SSH.NET" Version="2020.0.1" />
   </ItemGroup>
 </Project>

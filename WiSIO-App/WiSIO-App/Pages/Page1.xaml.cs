@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Renci.SshNet;
 
 namespace WiSIO_App.Pages
 {
@@ -29,9 +30,14 @@ namespace WiSIO_App.Pages
 
         private void ButtonMakePhoto_OnClick(object sender, RoutedEventArgs e)
         {
-            // ButtonMakePhoto
-
-
+            using (var client = new SshClient("192.168.1.14", "pi", ":)"))
+            {
+                client.Connect();
+                client.RunCommand("cd WiSIO");
+                client.RunCommand("python3 client.py");
+                client.RunCommand("exit");
+                client.Disconnect();
+            }
             BoardImage.Visibility = Visibility.Visible;
         }
 
