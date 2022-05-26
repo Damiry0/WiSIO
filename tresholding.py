@@ -48,17 +48,28 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10):
         img.crop(box).save(out)
     return k
 
-
+# it's gonna end up as a list of errors
 list_of_frames = []
+
 number_of_tiles = tile("dobra_wycieta.png", "output/", list_of_frames)
 print(range(number_of_tiles))
+# it's gonna be a list of images to delete
+list_of_all_frames = list_of_frames.copy()
+print("czy udało sięskopiowąc?", len(list_of_all_frames))
 
 
-def needle_in_hay_stack(haystack_name, needle_name, number_of_photos):
 
+def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles):
+    """
+    @param haystack_name: name of the ideal board file
+    @param number_of_photos: number of tiles, that the ideal board has been broken into
+    @param list_of_tiles: the list of tiles information
+    @return: None
+    """
+    list_of_bundles = list_of_tiles.copy()
     for i in range(number_of_photos):
         haystack_img = cv.imread(haystack_name, 0)
-        needle_img = cv.imread(''.join([needle_name, f'_{i}.png']), 0)
+        needle_img = cv.imread(list_of_bundles[i].tilefname, 0)
 
         result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
 
@@ -67,8 +78,8 @@ def needle_in_hay_stack(haystack_name, needle_name, number_of_photos):
         locations = np.where(result <= threshold)
         list2 = [None] * len(locations[0])
         # Writing necessary data to a separate list
-        for i in range(len(locations[0])):
-            list2[i] = result[locations[0][i]][locations[1][i]]
+        for n in range(len(locations[0])):
+            list2[n] = result[locations[0][n]][locations[1][n]]
         # We can zip those up into a list of (x, y) position tuples
         locations = list(zip(*locations[::1]))
         list1 = [None] * len(locations)
@@ -81,7 +92,6 @@ def needle_in_hay_stack(haystack_name, needle_name, number_of_photos):
             location_index = list2.index(min(list2))
             location = locations1[location_index]
             print('Found needle.')
-
             needle_w = needle_img.shape[1]
             needle_h = needle_img.shape[0]
             line_color = (120, 120, 0)
@@ -93,14 +103,24 @@ def needle_in_hay_stack(haystack_name, needle_name, number_of_photos):
             # Draw the box
             cv.rectangle(haystack_img, top_left, bottom_right, line_color, line_type)
             res = cv.resize(haystack_img, (960, 540))
-            cv.imshow('Matches', res)
-            cv.waitKey()
-
+            #cv.imshow('Matches', res)
+            #cv.waitKey()
+            list_of_tiles.remove(list_of_bundles[i])
         else:
             print('Needle not found.')
 
 
-needle_in_hay_stack('zla_wycieta.png', 'output/dobra_wycieta', number_of_tiles)
+print('Dlugosc przed:', len(list_of_frames))
+needle_in_hay_stack('zla_wycieta.png', number_of_tiles, list_of_frames)
+print('Dlugosc po', len(list_of_frames))
+
+
+new_list = [fruit for fruit in list_of_all_frames if fruit not in list_of_frames]
+print('Dlugosc listy do usuniecia', len(new_list))
+
+for item in new_list:
+    os.remove(item.tilefname)
+
 
 
 
