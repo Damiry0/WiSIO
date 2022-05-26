@@ -33,11 +33,10 @@ namespace WiSIO_App.Pages
             using (var client = new SshClient("192.168.1.14", "pi", "hehexdxd"))
             {
                 client.Connect();
-                client.RunCommand("cd WiSIO");
-                client.RunCommand("python3 make_photo.py");
+                client.RunCommand("python3 -u make_photo.py");
                 client.Disconnect();
             }
-            var path = ProjectSourcePath.Value + "\\picture2.jpg";
+            var path = ProjectSourcePath.Value + "tmp\\picture" + DateTime.Now.ToString("h-mm-ss") +".jpg";
             using (var client = new ScpClient("192.168.1.14", "pi", "hehexdxd"))
             {
                 client.Connect();
@@ -45,7 +44,7 @@ namespace WiSIO_App.Pages
                 {
                     client.Download("/tmp/picture.jpg", localFile);
                 }
-
+                client.Disconnect();
             }
             var bi3 = new BitmapImage();
             bi3.BeginInit();

@@ -51,7 +51,7 @@
     </hc:Window.NonClientAreaContent>
 
     <Grid>
-        <hc:StepBar Name="step" Margin="0,500,0,0">
+        <hc:StepBar StepIndex="0" Name="step" Margin="0,500,0,0">
             <hc:StepBarItem Content="Zdjęcie Wzorca"/>
             <hc:StepBarItem Content="Zdjęcie Porównywane"/>
             <hc:StepBarItem Content="Opcje"/>

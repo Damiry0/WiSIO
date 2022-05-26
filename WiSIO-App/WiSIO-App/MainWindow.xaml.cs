@@ -28,6 +28,9 @@ namespace WiSIO_App
                 new Page4(),
                 new Page5(),
             };
+            FrameMain.NavigationService.Navigate(pageList[step.StepIndex]);
+            pageList[step.StepIndex].Show();
+            
         }
 
         #region Change Theme
