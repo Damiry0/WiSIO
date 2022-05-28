@@ -11,6 +11,8 @@
 
     <Grid>
         <TextBox Style="{StaticResource TextBoxExtend}" Name="Field"  hc:InfoElement.Title="Ilosc podobrazków:" hc:InfoElement.Necessary="True" VerticalAlignment="Top" Margin="45,255,480,0"/>
+        <TextBox Style="{StaticResource TextBoxExtend}" Name="Field1"  hc:InfoElement.Title="Głębokość przeszukiwania:" hc:InfoElement.Necessary="True" VerticalAlignment="Top" Margin="45,340,480,0"/>
+
 
     </Grid>
 </Page>
