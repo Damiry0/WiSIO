@@ -4,11 +4,35 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WiSIO_App.Pages"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page5">
 
     <Grid>
-        
+
+        <WrapPanel Margin="30,30,0,0"  >
+            <hc:CompareSlider Value="5" Width="400" Height="250">
+                <hc:CompareSlider.TargetContent>
+                    <Border>
+                        <Border.Background>
+                            <ImageBrush ImageSource="/HandyControlDemo;component/Resources/Img/b1.jpg"/>
+                        </Border.Background>
+                    </Border>
+                </hc:CompareSlider.TargetContent>
+                <hc:CompareSlider.SourceContent>
+                    <Border>
+                        <Border.Background>
+                            <ImageBrush ImageSource="/HandyControlDemo;component/Resources/Img/b2.jpg"/>
+                        </Border.Background>
+                    </Border>
+                </hc:CompareSlider.SourceContent>
+            </hc:CompareSlider>
+        </WrapPanel>
+
+        <hc:ImageViewer Margin="300,0,0,140" Background="{DynamicResource SecondaryRegionBrush}" Width="400" Height="250" ImageSource="/HandyControlDemo;component/Resources/Img/1.jpg"/>
+
+
+
     </Grid>
 </Page>
