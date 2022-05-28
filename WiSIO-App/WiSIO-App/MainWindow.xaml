@@ -58,8 +58,8 @@
             <hc:StepBarItem Content="Wyniki"/>
         </hc:StepBar>
 
-        <Button hc:BorderElement.CornerRadius="15" Click="Button_Next" Width="70" Content="Next" HorizontalAlignment="Left" Margin="925,497,0,0" VerticalAlignment="Top"/>
-        <Button hc:BorderElement.CornerRadius="15" Click="Button_Prev" Width="70" Content="Prev" HorizontalAlignment="Left" Margin="10,497,0,0" VerticalAlignment="Top" />
+        <Button hc:BorderElement.CornerRadius="15" Click="Button_Next" Width="70" hc:IconElement.Geometry="{StaticResource RightGeometry}" HorizontalAlignment="Left" Margin="920,497,0,0" VerticalAlignment="Top"/>
+        <Button hc:BorderElement.CornerRadius="15" Click="Button_Prev" Width="70" hc:IconElement.Geometry="{StaticResource LeftGeometry}" HorizontalAlignment="Left" Margin="10,497,0,0" VerticalAlignment="Top" />
         <Frame Name="FrameMain" Content="Frame" Margin="0,0,0,110"/>
 
     </Grid>
