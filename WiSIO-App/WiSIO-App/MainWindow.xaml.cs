@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
+using System.Windows.Navigation;
 using HandyControl.Tools.Extension;
 using WiSIO_App.Pages;
 
@@ -25,10 +26,10 @@ namespace WiSIO_App
                 new Page1(),
                 new Page2(),
                 new Page3(),
-                new Page4(),
                 new Page5(),
             };
             FrameMain.NavigationService.Navigate(pageList[step.StepIndex]);
+            FrameMain.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             pageList[step.StepIndex].Show();
             
         }
