@@ -22,6 +22,7 @@ class Fragment:
         self.offset = offset
 
 
+
 # Function dividing an image into tiles.
 # Tiles are saved in given location as images.
 def tile(filename, dir_out, tile_list, div_w=10, div_h=10):
