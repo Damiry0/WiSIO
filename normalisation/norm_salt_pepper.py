@@ -1,13 +1,25 @@
 import numpy as np
 import cv2
 
-img = cv2.imread('../boards/1good.jpg', 1)
+distortion = 1
 
-median = cv2.medianBlur(img, 13)
-compare = np.concatenate((img, median), axis=1) #side by side comparison
+img = cv2.imread('../boards/zla_wycieta.png', 1)
 
-cv2.imshow('img', compare)
-cv2.waitKey(0)
-cv2.destroyAllWindows
+median = cv2.medianBlur(img, distortion)
+# compare = np.concatenate((img, median), axis=1) #side by side comparison
 
-cv2.imwrite('../boards/1res.jpg', compare)
+# cv2.imshow('img', median)
+# cv2.destroyAllWindows
+
+cv2.imwrite('../boards/zla_bez_soli.png', median)
+
+
+img = cv2.imread('../boards/dobra_wycieta.png', 1)
+
+median = cv2.medianBlur(img, distortion)
+# compare = np.concatenate((img, median), axis=1) #side by side comparison
+
+# cv2.imshow('img', compare)
+# cv2.destroyAllWindows
+
+cv2.imwrite('../boards/dobra_bez_soli.png', median)
