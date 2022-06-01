@@ -52,6 +52,7 @@
 
     <Grid>
         <hc:StepBar StepIndex="0" Name="step" Margin="0,500,0,0">
+            <hc:StepBarItem Content="Logowanie"/>
             <hc:StepBarItem Content="Zdjęcie Wzorca"/>
             <hc:StepBarItem Content="Zdjęcie Porównywane"/>
             <hc:StepBarItem Content="Opcje przetwarzania"/>
@@ -61,6 +62,7 @@
         <Button hc:BorderElement.CornerRadius="15" Click="Button_Next" Width="70" hc:IconElement.Geometry="{StaticResource RightGeometry}" HorizontalAlignment="Left" Margin="920,497,0,0" VerticalAlignment="Top"/>
         <Button hc:BorderElement.CornerRadius="15" Click="Button_Prev" Width="70" hc:IconElement.Geometry="{StaticResource LeftGeometry}" HorizontalAlignment="Left" Margin="10,497,0,0" VerticalAlignment="Top" />
         <Frame Name="FrameMain" Content="Frame" Margin="0,0,0,110"/>
+        
 
     </Grid>
 

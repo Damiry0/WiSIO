@@ -1,0 +1,24 @@
+﻿<Page x:Class="WiSIO_App.Pages.SshConnectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WiSIO_App.Pages"
+      xmlns:hc="https://handyorg.github.io/handycontrol"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SshConnectionPage">
+
+    <Grid>
+        <TextBox Name="IpBox" Style="{StaticResource TextBoxExtend}" hc:InfoElement.Title="Ip serwera" Width="200" VerticalAlignment="Center" Margin="38,0,562,0"/>
+        <TextBox Name="LoginBox" Style="{StaticResource TextBoxExtend}" hc:InfoElement.Title="Login" Width="200" VerticalAlignment="Top" Margin="38,117,562,0"/>
+        <hc:PasswordBox Name="PasswordBox" hc:InfoElement.Placeholder="Wprowadź hasło" ShowEyeButton="True" Margin="38,290,562,130"/>
+
+        <hc:ProgressButton Name="CheckConnection" Click="CheckConnection_OnClick" Content="Logowanie" HorizontalAlignment="Left" Margin="38,360,0,0" VerticalAlignment="Top"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Right">
+            <StackPanel hc:Growl.GrowlParent="True" VerticalAlignment="Top" Margin="0,10,10,10"/>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

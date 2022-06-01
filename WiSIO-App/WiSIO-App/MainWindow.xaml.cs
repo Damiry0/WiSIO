@@ -23,6 +23,7 @@ namespace WiSIO_App
             InitializeComponent();
             pageList = new List<Page>
             {
+                new SshConnectionPage(),
                 new Page1(),
                 new Page2(),
                 new Page3(),
