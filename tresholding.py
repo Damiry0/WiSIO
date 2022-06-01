@@ -15,7 +15,7 @@ if not os.path.isdir('output'):
     os.mkdir('output')
 
 
-# Class that is used to keep the tile name and it's offset
+# Class that is used to keep the tile name and its offset
 class Fragment:
     def __init__(self, tilefname, offset):
         self.tilefname = tilefname
@@ -48,16 +48,6 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10):
         img.crop(box).save(out)
     return k
 
-# it's gonna end up as a list of errors
-list_of_frames = []
-
-number_of_tiles = tile("dobra_wycieta.png", "output/", list_of_frames)
-print(range(number_of_tiles))
-# it's gonna be a list of images to delete
-list_of_all_frames = list_of_frames.copy()
-print("czy udało sięskopiowąc?", len(list_of_all_frames))
-
-
 
 def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles):
     """
@@ -74,7 +64,7 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles):
         result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
 
         # I've inverted the threshold and ???where??? comparison to work with TM_SQDIFF_NORMED
-        threshold = 0.07
+        threshold = 0.07  # the lower the threshold, the more accurate detecting
         locations = np.where(result <= threshold)
         list2 = [None] * len(locations[0])
         # Writing necessary data to a separate list
@@ -109,16 +99,27 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles):
         else:
             print('Needle not found.')
 
+# list of errors
+list_of_frames = []
 
+'''Dividing into tiles'''
+number_of_tiles = tile("dobra_wycieta.png", "output/", list_of_frames,8,8)
+print(range(number_of_tiles))
+# list of images to delete
+list_of_all_frames = list_of_frames.copy()
+
+'''Searching for every element from "output" in input frame'''
 print('Dlugosc przed:', len(list_of_frames))
 needle_in_hay_stack('zla_wycieta.png', number_of_tiles, list_of_frames)
 print('Dlugosc po', len(list_of_frames))
 
+# All frames - not_needle frames = list of needle frames that should be erased from "output"
+# Example: We divided source image into 100 tiles. In input image we found 90 of them, and the rest we did not find.
+# We don't need the ones we found, so we delete them, and analyse only the remaining 10.
+list_to_errase = [not_needle for not_needle in list_of_all_frames if not_needle not in list_of_frames]
+print('Dlugosc listy do usuniecia', len(list_to_errase))
 
-new_list = [fruit for fruit in list_of_all_frames if fruit not in list_of_frames]
-print('Dlugosc listy do usuniecia', len(new_list))
-
-for item in new_list:
+for item in list_to_errase:
     os.remove(item.tilefname)
 
 
