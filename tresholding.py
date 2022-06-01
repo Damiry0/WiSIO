@@ -63,6 +63,28 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     return k
 
 
+def check_adjacent(w_tile, h_tile, x_offset_1, x_offset_2, y_offset_1, y_offset_2):
+    flag_adjacent = []
+    if (abs(x_offset_1 - x_offset_2) / w_tile == 1.0 and y_offset_1 == y_offset_2):
+        flag_adjacent.append('1')
+        if (x_offset_1 < x_offset_2):
+            flag_adjacent.append('R')
+        else:
+            flag_adjacent.append('L')
+    else:
+        flag_adjacent.append('0')
+
+    if (abs(y_offset_1 - y_offset_2) / h_tile == 1.0 and x_offset_1 == x_offset_2):
+        flag_adjacent.append('1')
+        if (y_offset_1 < y_offset_2):
+            flag_adjacent.append('T')
+        else:
+            flag_adjacent.append('B')
+    else:
+        flag_adjacent.append('0')
+
+    return flag_adjacent
+
 def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshold=0.07):
     """
     @param haystack_name: name of the ideal board file
@@ -179,3 +201,65 @@ for i in range(howDeep):
     list_of_frames = deep_list_of_frames.copy()
     deep_list_of_frames = []
     thr += thr_grow
+
+
+
+# Algorytm sprawdzania działa, bo sprawdzałem i dawało dobre rezultaty ale teraz się jebie przez inny tile size
+# tile sizy wychodzące poniżej w div_w i div_h są pojebane i kompletnie nie pasują do rzeczywistych tileów
+# + jescze nie mam pojęcia czy to wynikowe co wychodzi jest dobre, chyba że zły obraz wziąłem idk
+# do omówienia jutro (02.06), a na razie pushuje
+
+Image1 = Image.open("dobra_wycieta.png")
+Image1copy = Image1.copy()
+w, h = Image1.size
+div_w = 2
+div_h = 2
+w_tile = int(w/div_w)
+h_tile = int(h/div_h)
+value = [255,255,255]
+
+print("Tile width : ",w_tile)
+print("Tile height : ",h_tile)
+for square in list_of_frames:
+    pos = []
+    for item in list_of_frames:
+        flag = []
+        flag = check_adjacent(w_tile,h_tile,square.offset[0],item.offset[0],square.offset[1],item.offset[1])
+        print("Square_offset x : ",square.offset[0])
+        print("Square offset y : ",square.offset[1])
+        print("item_offset x : ", item.offset[0])
+        print("item offset y : ", item.offset[1])
+        if flag[0] != '0':
+            pos.append(flag[1])
+            if(flag[2]!='0'):
+                pos.append(flag[3])
+        elif (flag[0] == '0' and flag[1] !='0'):
+            pos.append(flag[2])
+    print("pos flag :",pos)
+    border_right = 5
+    border_left = 5
+    border_top = 5
+    border_bottom = 5
+    img = Image.open(square.tilefname)
+    if 'R' in pos:
+        border_right = 0
+    if 'L' in pos:
+        border_left = 0
+    if 'T' in pos:
+        border_top = 0
+    if 'B' in pos:
+        border_top = 0
+
+    src = cv.imread(square.tilefname, cv.IMREAD_COLOR)
+    dst = cv.copyMakeBorder(src, border_top, border_bottom, border_left, border_right, cv.BORDER_CONSTANT, None,value)
+    cv.imwrite(square.tilefname, dst)
+    temp_img = Image.open(square.tilefname)
+    Image1copy.paste(temp_img, (square.offset[0] - border_left ,square.offset[1] - border_top))
+    Image1copy.save("final_board.png")
+
+Image1copy.show()
+
+
+
+
+
