@@ -3,6 +3,7 @@ import numpy as np
 import os
 from PIL import Image
 from itertools import product
+import shutil
 
 
 # Change the working directory to the folder this script is in.
@@ -54,7 +55,7 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     return k
 
 
-def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshold=0.05):
+def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshold=0.015):
     """
     @param haystack_name: name of the ideal board file
     @param number_of_photos: number of tiles, that the ideal board has been broken into
@@ -110,7 +111,7 @@ list_of_frames = []
 deep_list_of_frames = []
 
 '''Dividing into tiles'''
-number_of_tiles = tile("dobra_wycieta.png", "output/", list_of_frames, div_w=3, div_h=3)
+number_of_tiles = tile("dobra_wycieta.png", "output/", list_of_frames, div_w=2, div_h=2)
 print(range(number_of_tiles))
 # list of images to delete
 list_of_all_frames = list_of_frames.copy()
@@ -130,13 +131,29 @@ print('Dlugosc listy do usuniecia', len(list_to_erase))
 for item in list_to_erase:
     os.remove(item.tilefname)
 
-# loop for output images
+# CHECKING ERROR IMAGES IN OUTPUT
 for frame in list_of_frames:
-    number_of_tiles = tile(frame.tilefname, "output_temp/", deep_list_of_frames, div_w=5, div_h=5)
+    number_of_tiles = tile(frame.tilefname, "output_temp/", deep_list_of_frames, div_w=4, div_h=4, offset=frame.offset)
     list_of_all_frames = deep_list_of_frames.copy()
-    needle_in_hay_stack('zla_wycieta.png', number_of_tiles, deep_list_of_frames)
+    needle_in_hay_stack('zla_wycieta.png', number_of_tiles, deep_list_of_frames, threshold=0.07)
     list_to_erase = [not_needle for not_needle in list_of_all_frames if not_needle not in deep_list_of_frames]
+    #removing found frames
     for item in list_to_erase:
         os.remove(item.tilefname)
-    for item in list_to_erase:
-        os.remove(item.tilefname)
+
+
+# PUTTING subFRAMES INTO OUTPUT AND CHANGING list_of_frames - now subframes become frames
+
+# removing files from output, to make place for
+for path in os.scandir('output/'):
+    if path.is_file():
+        os.remove(path)
+# transferring files from output_temp to output
+for path in os.scandir('output_temp/'):
+    if path.is_file():
+        shutil.move(path, os.getcwd()+r'\output')
+
+
+# #to niżej nie zadziała chyba tak jak chcę, nie wiem czy nie trzeba będzie uciąć kawałka ścieżki
+# list_of_frames = deep_list_of_frames.copy()
+

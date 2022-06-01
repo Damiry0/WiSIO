@@ -21,5 +21,10 @@ for path in os.scandir(dir_path):
         print(path)
         count += 1
 print('file count:', count)
+print(os.getcwd())
 
-os.remove('siurek/*')
+
+for path in os.scandir(dir_path):
+    if path.is_file():
+        os.remove(path)
+print('file count:', count)
