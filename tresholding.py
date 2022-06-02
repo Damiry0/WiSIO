@@ -4,7 +4,28 @@ import os
 from PIL import Image
 from itertools import product
 import shutil
+import sys
 
+if __name__ == "__main__":
+    print(f"Arguments count: {len(sys.argv)}")
+    for i, arg in enumerate(sys.argv):
+        print(f"Argument {i:>8}: {arg}")
+# Sprawdzenie poprawnosci typów
+
+# print(int(sys.argv[3]))
+# print(type(int(sys.argv[3])))
+#
+# print(float(sys.argv[4]))
+# print(type(float(sys.argv[4])))
+#
+# print(float(sys.argv[5]))
+# print(type(float(sys.argv[5])))
+#
+# print(int(sys.argv[6]))
+# print(type(int(sys.argv[6])))
+#
+# print(int(sys.argv[7]))
+# print(type(int(sys.argv[7])))
 
 # Change the working directory to the folder this script is in.
 os.chdir('boards')
@@ -143,15 +164,33 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
         else:
             print('Needle not found.')
 
+# Sposób wywołania pliku tresholding.py:
+#
+# python tresholding.py USER_PARAM_1 USER_PARAM_2 USER_PARAM_3 USER_PARAM_4 USER_PARAM_5 USER_PARAM_6 USER_PARAM_7
+# USER_PARAM_1 - nazwa pliku ze zdjęciem dobrej płytki <typ string> - default 'dobra_wycieta.png'
+# USER_PARAM_2 - nazwa pliku ze zdjęciem złej płytki <typ string> - default 'zla_wycieta.png'
+# USER_PARAM_3 - stopień głębokości algorytmu <typ int> - default '3'
+# USER_PARAM_4 - próg wykrywania pierwszej warstwy <typ float> - default '0.02'
+# USER_PARAM_5 - zwiększenie progu co warstwę <typ float> - default '0.06'
+# USER_PARAM_6 - parametr dzielenia płytki w osi X <typ int> - default '2'
+# USER_PARAM_7 - parametr dzielenia płytki w osi Y <typ int> - default '2'
+#
+# Wywołanie:
+# tresholding.py dobra_wycieta.png zla_wycieta.png 3 0.02 0.06 2 2
+#
+#
+#
+# Program zapisuje plik wynikowy z zaznaczonymi błędami do pliku 'final_board.png' oraz wyświetla go na ekranie
+
 
 # list of errors to display
 list_of_frames = []
 # list of error subframes
 deep_list_of_frames = []
 # good image entered by user
-source_image = "dobra_wycieta.png"     # USER PARAM
+source_image = sys.argv[1]     # USER PARAM
 # bad image entered by user
-input_image = "zla_wycieta.png"     # USER PARAM
+input_image = sys.argv[2]     # USER PARAM
 
 
 '''Dividing into tiles'''
@@ -176,17 +215,16 @@ for item in list_to_erase:
     os.remove(item.tilefname)
 
 # Deep loop for better accuracy?
-howDeep = 3     # USER PARAM
+howDeep = int(sys.argv[3])     # USER PARAM
 # starting threshold for first layer
-thr = 0.02     # USER PARAM
+thr = float(sys.argv[4])     # USER PARAM
 # threshold raise per loop
-thr_grow = 0.06     # USER PARAM
-
+thr_grow = float(sys.argv[5])      # USER PARAM
 
 for i in range(howDeep):
     # CHECKING ERROR IMAGES IN OUTPUT
     for frame in list_of_frames:
-        number_of_tiles = tile(frame.tilefname, "output_temp/", deep_list_of_frames, div_w=2, div_h=2, offset=frame.offset)
+        number_of_tiles = tile(frame.tilefname, "output_temp/", deep_list_of_frames, int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
         list_of_all_frames = deep_list_of_frames.copy()
         needle_in_hay_stack(input_image, number_of_tiles, deep_list_of_frames, threshold=thr)
         list_to_erase = [not_needle for not_needle in list_of_all_frames if not_needle not in deep_list_of_frames]
@@ -213,16 +251,8 @@ for i in range(howDeep):
     deep_list_of_frames = []
     thr += thr_grow
 
-for item in list_of_frames:
-    print(item.tilefname)
-    print(item.offset)
-
-
-
-
 Image1 = Image.open(source_image)
 Image1copy = Image1.copy()
-
 
 w_tile = abs(list_of_frames[0].offset[0] - list_of_frames[0].offset[2])
 h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
