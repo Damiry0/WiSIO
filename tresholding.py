@@ -56,7 +56,8 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     for i, j in grid:
         box = (j, i, j + w_tile, i + h_tile)
         out = os.path.join(dir_out, f'{name}_{k}{ext}')
-        add_offset = [sum(x) for x in zip(box, offset)]  # adding box and offset elementwise
+        n_offset = [offset[0], offset[1], offset[0], offset[1]]
+        add_offset = [sum(x) for x in zip(box, n_offset)]  # adding box and offset elementwise
         tile_list.append(Fragment(out, add_offset))
         k = k + 1
         img.crop(box).save(out)
@@ -64,6 +65,15 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
 
 
 def check_adjacent(w_tile, h_tile, x_offset_1, x_offset_2, y_offset_1, y_offset_2):
+    """
+    :param w_tile: width of a single tile
+    :param h_tile: height of a single tile
+    :param x_offset_1: offset on the X AXIS from the top left corner of the board of the primary tile
+    :param x_offset_2: offset on the X AXIS from the top left corner of the board of the compared tile
+    :param y_offset_1: offset on the Y AXIS from the top left corner of the board of the primary tile
+    :param y_offset_2: offset on the Y AXIS from the top left corner of the board of the compared tile
+    :return: a list of neighbour tile flags
+    """
     flag_adjacent = []
     if (abs(x_offset_1 - x_offset_2) / w_tile == 1.0 and y_offset_1 == y_offset_2):
         flag_adjacent.append('1')
@@ -77,9 +87,9 @@ def check_adjacent(w_tile, h_tile, x_offset_1, x_offset_2, y_offset_1, y_offset_
     if (abs(y_offset_1 - y_offset_2) / h_tile == 1.0 and x_offset_1 == x_offset_2):
         flag_adjacent.append('1')
         if (y_offset_1 < y_offset_2):
-            flag_adjacent.append('T')
-        else:
             flag_adjacent.append('B')
+        else:
+            flag_adjacent.append('T')
     else:
         flag_adjacent.append('0')
 
@@ -127,7 +137,7 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
             bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
             # Draw the box
             cv.rectangle(haystack_img, top_left, bottom_right, line_color, line_type)
-            res = cv.resize(haystack_img, (960, 540))
+            #res = cv.resize(haystack_img, (960, 540))
             #cv.imshow('Matches', res)
             #cv.waitKey()
             list_of_tiles.remove(list_of_bundles[i])
@@ -162,11 +172,11 @@ for item in list_to_erase:
     os.remove(item.tilefname)
 
 # Deep loop for better accuracy?
-howDeep = 2     # USER PARAM
+howDeep = 3     # USER PARAM
 # starting threshold for first layer
 thr = 0.02     # USER PARAM
 # threshold raise per loop
-thr_grow = 0.02     # USER PARAM
+thr_grow = 0.06     # USER PARAM
 
 
 for i in range(howDeep):
@@ -202,6 +212,9 @@ for i in range(howDeep):
     deep_list_of_frames = []
     thr += thr_grow
 
+for item in list_of_frames:
+    print(item.tilefname)
+    print(item.offset)
 
 
 # Algorytm sprawdzania działa, bo sprawdzałem i dawało dobre rezultaty ale teraz się jebie przez inny tile size
@@ -211,24 +224,23 @@ for i in range(howDeep):
 
 Image1 = Image.open("dobra_wycieta.png")
 Image1copy = Image1.copy()
-w, h = Image1.size
-div_w = 2
-div_h = 2
-w_tile = int(w/div_w)
-h_tile = int(h/div_h)
-value = [255,255,255]
 
-print("Tile width : ",w_tile)
-print("Tile height : ",h_tile)
+
+w_tile = abs(list_of_frames[0].offset[0] - list_of_frames[0].offset[2])
+h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
+
+print("Tile width",w_tile)
+print("Tile height",h_tile)
+value = [255,255,255]
 for square in list_of_frames:
     pos = []
     for item in list_of_frames:
         flag = []
         flag = check_adjacent(w_tile,h_tile,square.offset[0],item.offset[0],square.offset[1],item.offset[1])
-        print("Square_offset x : ",square.offset[0])
-        print("Square offset y : ",square.offset[1])
-        print("item_offset x : ", item.offset[0])
-        print("item offset y : ", item.offset[1])
+        #print("Square_offset x : ",square.offset[0])
+        #print("Square offset y : ",square.offset[1])
+        #print("item_offset x : ", item.offset[0])
+        #print("item offset y : ", item.offset[1])
         if flag[0] != '0':
             pos.append(flag[1])
             if(flag[2]!='0'):
@@ -242,13 +254,13 @@ for square in list_of_frames:
     border_bottom = 5
     img = Image.open(square.tilefname)
     if 'R' in pos:
-        border_right = 0
+         border_right = 1
     if 'L' in pos:
-        border_left = 0
+         border_left = 1
     if 'T' in pos:
-        border_top = 0
+         border_top = 1
     if 'B' in pos:
-        border_top = 0
+         border_bottom = 1
 
     src = cv.imread(square.tilefname, cv.IMREAD_COLOR)
     dst = cv.copyMakeBorder(src, border_top, border_bottom, border_left, border_right, cv.BORDER_CONSTANT, None,value)
