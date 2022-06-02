@@ -218,6 +218,8 @@ for item in list_of_frames:
     print(item.offset)
 
 
+
+
 Image1 = Image.open(source_image)
 Image1copy = Image1.copy()
 
@@ -231,7 +233,7 @@ value = [255, 255, 255]
 for square in list_of_frames:
     pos = []
     for item in list_of_frames:
-        flag = []  # DO WYWALENIA TA LINIA?
+        flag = []  # DO WYWALENIA TA LINIA? Nie lul
         flag = check_adjacent(w_tile, h_tile, square.offset[0], item.offset[0], square.offset[1], item.offset[1])
         if flag[0] != '0':
             pos.append(flag[1])
@@ -244,7 +246,6 @@ for square in list_of_frames:
     border_left = 5
     border_top = 5
     border_bottom = 5
-    img = Image.open(square.tilefname)
     if 'R' in pos:
          border_right = 1
     if 'L' in pos:
@@ -254,18 +255,16 @@ for square in list_of_frames:
     if 'B' in pos:
          border_bottom = 1
 
-# # Here is code that takes it's time, need to change it for some kind of grid
+    src = cv.imread(square.tilefname, cv.IMREAD_COLOR)
+    dst = cv.copyMakeBorder(src, border_top, border_bottom, border_left, border_right, cv.BORDER_CONSTANT, None,value)
+    cv.imwrite(square.tilefname, dst)
+    temp_img = Image.open(square.tilefname)
 
-#     src = cv.imread(square.tilefname, cv.IMREAD_COLOR)
-#     dst = cv.copyMakeBorder(src, border_top, border_bottom, border_left, border_right, cv.BORDER_CONSTANT, None,value)
-#     cv.imwrite(square.tilefname, dst)
-#     temp_img = Image.open(square.tilefname)
-#     Image1copy.paste(temp_img, (square.offset[0] - border_left ,square.offset[1] - border_top))
-#     Image1copy.save("final_board.png")
-#
-# Image1copy.show()
+    Image1copy.paste(temp_img, (square.offset[0] - border_left ,square.offset[1] - border_top))
 
 
+Image1copy.save("final_board.png")
+Image1copy.show()
 
 
 
