@@ -56,6 +56,7 @@ namespace WiSIO_App.Pages
                 bi3.EndInit();
                 BoardImage.Source = bi3;
                 BoardImage.Visibility = Visibility.Visible;
+                Properties.Settings.Default.Image1 = path;
             }
             catch 
             {
@@ -78,6 +79,7 @@ namespace WiSIO_App.Pages
                 bi3.UriSource = new Uri(openFileDialog.FileName, UriKind.Absolute);
                 bi3.EndInit();
                 BoardImage.Source = bi3;
+                Properties.Settings.Default.Image1 = openFileDialog.FileName;
                 BoardImage.Visibility = Visibility.Visible;
             }
                  

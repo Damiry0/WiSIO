@@ -58,5 +58,29 @@ namespace WiSIO_App.Properties {
                 this["password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Image1 {
+            get {
+                return ((string)(this["Image1"]));
+            }
+            set {
+                this["Image1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Image2 {
+            get {
+                return ((string)(this["Image2"]));
+            }
+            set {
+                this["Image2"] = value;
+            }
+        }
     }
 }
