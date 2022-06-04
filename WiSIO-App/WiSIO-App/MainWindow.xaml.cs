@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using HandyControl.Controls;
 using HandyControl.Themes;
 using HandyControl.Tools;
@@ -93,6 +94,13 @@ namespace WiSIO_App
         private void Button_Next(object sender, RoutedEventArgs e)
         {
             step.Next();
+            if (step.StepIndex == 4)
+            {
+                RunPatternMatchingAlgorithm();
+                var page5 = pageList[4];
+                var page = (Page5)page5;
+                page.GenerateResults();
+            }
             foreach (var page in pageList)
             {
                 page.Hide();
@@ -101,19 +109,13 @@ namespace WiSIO_App
             pageList[step.StepIndex].Show();
         }
 
-        private void RunPatternMatchingAlgorithm(string cmd, string args)
+        private void RunPatternMatchingAlgorithm()
         {
            
-           
-
-        }
-
-        private void Button_OnClick(object sender, RoutedEventArgs e)
-        {
             var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
             var proc = System.Diagnostics.Process.Start(filename,
-                $"{Path.Combine(ProjectSourcePath.Value, "tmp\\dobra_wycieta.png")} {Path.Combine(ProjectSourcePath.Value, "tmp\\zla_wycieta.png")} 3 0.02 0.06 2 2");
-            
+                $"dobra_wycieta.png zla_wycieta.png 3 0.02 0.06 2 2");
+            proc?.WaitForExit();
         }
     }
 }
