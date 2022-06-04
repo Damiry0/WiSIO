@@ -11,7 +11,8 @@
         Height="600" 
         Width="1000"
         Icon="Images/letter-w.ico"
-        UseLayoutRounding="True">
+        UseLayoutRounding="True"
+        ResizeMode="NoResize">
     <hc:Window.NonClientAreaContent>
         <Grid>
             <Button HorizontalAlignment="Right" Grid.Column="1" Click="ButtonConfig_OnClick" Name="ButtonConfig" Style="{StaticResource ButtonIcon}" Foreground="{DynamicResource PrimaryTextBrush}" hc:IconElement.Geometry="{StaticResource ConfigGeometry}"/>
@@ -57,6 +58,7 @@
             <hc:StepBarItem Content="Zdjęcie Porównywane"/>
             <hc:StepBarItem Content="Opcje przetwarzania"/>
             <hc:StepBarItem Content="Wyniki"/>
+            <Button Name="Button" Click="Button_OnClick" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         </hc:StepBar>
 
         <Button hc:BorderElement.CornerRadius="15" Click="Button_Next" Width="70" hc:IconElement.Geometry="{StaticResource RightGeometry}" HorizontalAlignment="Left" Margin="920,497,0,0" VerticalAlignment="Top"/>

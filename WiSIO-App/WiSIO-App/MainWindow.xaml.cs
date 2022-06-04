@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using HandyControl.Controls;
 using HandyControl.Themes;
 using HandyControl.Tools;
@@ -97,6 +99,21 @@ namespace WiSIO_App
             }
             FrameMain.NavigationService.Navigate(pageList[step.StepIndex]);
             pageList[step.StepIndex].Show();
+        }
+
+        private void RunPatternMatchingAlgorithm(string cmd, string args)
+        {
+           
+           
+
+        }
+
+        private void Button_OnClick(object sender, RoutedEventArgs e)
+        {
+            var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
+            var proc = System.Diagnostics.Process.Start(filename,
+                $"{Path.Combine(ProjectSourcePath.Value, "tmp\\dobra_wycieta.png")} {Path.Combine(ProjectSourcePath.Value, "tmp\\zla_wycieta.png")} 3 0.02 0.06 2 2");
+            
         }
     }
 }
