@@ -6,18 +6,22 @@
       xmlns:local="clr-namespace:WiSIO_App.Pages"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
       Title="SshConnectionPage">
 
     <Grid>
-        <TextBox Name="IpBox" Style="{StaticResource TextBoxExtend}" hc:InfoElement.Title="Ip serwera" Width="200" VerticalAlignment="Center" Margin="38,0,562,0"/>
-        <TextBox Name="LoginBox" Style="{StaticResource TextBoxExtend}" hc:InfoElement.Title="Login" Width="200" VerticalAlignment="Top" Margin="38,117,562,0"/>
-        <hc:PasswordBox Name="PasswordBox" hc:InfoElement.Placeholder="Wprowadź hasło" ShowEyeButton="True" Margin="38,290,562,130"/>
+        <StackPanel Margin="0,150,600
+                    ,0"  >
+            <TextBox Name="IpBox" Style="{StaticResource TextBoxExtend}" hc:InfoElement.Title="Ip serwera" Width="250" Margin="0,20,0,0" />
+            <TextBox Name="LoginBox" Style="{StaticResource TextBoxExtend}" hc:InfoElement.Title="Login" Width="250" Margin="0,20,0,0"  />
+            <hc:PasswordBox Name="PasswordBox" hc:InfoElement.Placeholder="Wprowadź hasło" ShowEyeButton="True" Width="250" Margin="0,20,0,0"/>
+            <hc:ProgressButton Style="{StaticResource ProgressButtonDanger}" Name="CheckConnection" Click="CheckConnection_OnClick" Content="Logowanie" Margin="0,20,0,0" />
+        </StackPanel>
 
-        <hc:ProgressButton Name="CheckConnection" Click="CheckConnection_OnClick" Content="Logowanie" HorizontalAlignment="Left" Margin="38,360,0,0" VerticalAlignment="Top"/>
+        
 
         <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Right">
-            <StackPanel hc:Growl.GrowlParent="True" VerticalAlignment="Top" Margin="0,10,10,10"/>
+            <StackPanel hc:Growl.GrowlParent="True" VerticalAlignment="Top" Margin="0,10,10,10" />
         </ScrollViewer>
 
     </Grid>

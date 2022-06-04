@@ -30,11 +30,6 @@ namespace WiSIO_App.Pages
 
         public void GenerateResults()
         {
-           
-        }
-
-        private void Button_OnClick(object sender, RoutedEventArgs e)
-        {
             var bi3 = new BitmapImage();
             bi3.BeginInit();
             bi3.UriSource = new Uri(Properties.Settings.Default.Image1, UriKind.Absolute);
