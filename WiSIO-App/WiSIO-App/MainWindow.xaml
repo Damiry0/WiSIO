@@ -56,14 +56,20 @@
             <hc:StepBarItem Content="Logowanie"/>
             <hc:StepBarItem Content="Zdjęcie Wzorca"/>
             <hc:StepBarItem Content="Zdjęcie Porównywane"/>
-            <hc:StepBarItem Content="Opcje przetwarzania"/>
+            <hc:StepBarItem Content="Opcje Przetwarzania"/>
             <hc:StepBarItem Content="Wyniki"/>
         </hc:StepBar>
 
-        <Button hc:BorderElement.CornerRadius="15" Click="Button_Next" Width="70" hc:IconElement.Geometry="{StaticResource RightGeometry}" HorizontalAlignment="Left" Margin="920,497,0,0" VerticalAlignment="Top"/>
+        <Button hc:BorderElement.CornerRadius="15" Click="Button_NextAsync" Width="70" hc:IconElement.Geometry="{StaticResource RightGeometry}" HorizontalAlignment="Left" Margin="920,497,0,0" VerticalAlignment="Top"/>
         <Button hc:BorderElement.CornerRadius="15" Click="Button_Prev" Width="70" hc:IconElement.Geometry="{StaticResource LeftGeometry}" HorizontalAlignment="Left" Margin="10,497,0,0" VerticalAlignment="Top" />
         <Frame Name="FrameMain" Content="Frame" Margin="0,0,0,110"/>
+        <ScrollViewer  VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Right">
+            <StackPanel hc:Growl.GrowlParent="False" VerticalAlignment="Top" Margin="0,10,10,10" />
+        </ScrollViewer>
+        <hc:TextBox Name="placee" HorizontalAlignment="Left" Height="98" Margin="385,463,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="545"/>
+
     </Grid>
+
 
 
 </hc:Window>

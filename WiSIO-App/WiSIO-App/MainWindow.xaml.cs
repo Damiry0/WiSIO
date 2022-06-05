@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using HandyControl.Controls;
 using HandyControl.Themes;
 using HandyControl.Tools;
@@ -91,15 +93,23 @@ namespace WiSIO_App
             pageList[step.StepIndex].Show();
         }
 
-        private void Button_Next(object sender, RoutedEventArgs e)
+        private async void Button_NextAsync(object sender, RoutedEventArgs e)
         {
             step.Next();
             if (step.StepIndex == 4)
             {
-                RunPatternMatchingAlgorithm();
-                var page5 = pageList[4];
-                var page = (Page5)page5;
-                page.GenerateResults();
+                try
+                {
+                    await RunPatternMatchingAlgorithm();
+                    var page5 = pageList[4];
+                    var page = (Page5)page5;
+                    page.GenerateResults();
+                }
+                catch (UriFormatException)
+                {
+                    Growl.Error("Nie podano zdjęcia do przetworzenia!");
+                }
+                
             }
             foreach (var page in pageList)
             {
@@ -109,13 +119,38 @@ namespace WiSIO_App
             pageList[step.StepIndex].Show();
         }
 
-        private void RunPatternMatchingAlgorithm()
+        private async Task RunPatternMatchingAlgorithm()
         {
            
             var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
-            var proc = System.Diagnostics.Process.Start(filename,
-                $"{Properties.Settings.Default.Image1} {Properties.Settings.Default.Image2} {Properties.Settings.Default.Arg1} {Properties.Settings.Default.Arg2} {Properties.Settings.Default.Arg3} {Properties.Settings.Default.Arg4} {Properties.Settings.Default.Arg5}");
-            proc?.WaitForExit();
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = filename,
+                    Arguments = $"{Properties.Settings.Default.Image1} {Properties.Settings.Default.Image2} {Properties.Settings.Default.Arg1} {Properties.Settings.Default.Arg2} {Properties.Settings.Default.Arg3} {Properties.Settings.Default.Arg4} {Properties.Settings.Default.Arg5}",
+                    CreateNoWindow = true,
+                    ErrorDialog = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                }
+            };
+            process.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
+            process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
+            process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
+        }
+        private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        {
+            Application.Current.Dispatcher.BeginInvoke (
+                System.Windows.Threading.DispatcherPriority.Send, (Action)delegate
+                {
+                    placee.AppendText(outLine.Data);
+                    placee.AppendText(Environment.NewLine);
+                });
         }
     }
 }
