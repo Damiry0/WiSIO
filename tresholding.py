@@ -16,36 +16,25 @@
 
 
 import cv2 as cv
-import numpy as np
 import os
-from PIL import Image
-from itertools import product
 import shutil
 import sys
+# import numpy as np
+from numpy import where
+
+from PIL import Image
+from itertools import product
+
+
+# Change the working directory to the folder this script is in.
+application_path = os.path.dirname(sys.executable)
+os.chdir(application_path + '\\boards')
 
 if __name__ == "__main__":
     print(f"Arguments count: {len(sys.argv)}")
     for i, arg in enumerate(sys.argv):
         print(f"Argument {i:>8}: {arg}")
-# Sprawdzenie poprawnosci typów
 
-# print(int(sys.argv[3]))
-# print(type(int(sys.argv[3])))
-#
-# print(float(sys.argv[4]))
-# print(type(float(sys.argv[4])))
-#
-# print(float(sys.argv[5]))
-# print(type(float(sys.argv[5])))
-#
-# print(int(sys.argv[6]))
-# print(type(int(sys.argv[6])))
-#
-# print(int(sys.argv[7]))
-# print(type(int(sys.argv[7])))
-
-# Change the working directory to the folder this script is in.
-os.chdir('boards')
 
 # checking if there is an output folder to stash the tiles in, if not, creating one
 if not os.path.isdir('output'):
@@ -79,7 +68,8 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     @return: number of tiles
     """
     name, ext = os.path.splitext(filename)
-    name = name.split('/')[-1]
+    # z tym trzeba popatrzeć czy to ma sens, czy tu ma być '//', '\\', czy pojedyncze czy co
+    name = name.split("\\")[-1]
     img = Image.open(filename)
     w, h = img.size
     w_tile = int(w/div_w)
@@ -147,7 +137,7 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
 
         result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
         # Inverted threshold to work with TM_SQDIFF_NORMED
-        locations = np.where(result <= threshold)
+        locations = where(result <= threshold)
         list2 = [None] * len(locations[0])
         # Writing necessary data to a separate list
         for n in range(len(locations[0])):
@@ -156,11 +146,11 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
         locations = list(zip(*locations[::1]))
         list1 = [None] * len(locations)
         # Zipping a new list for later iteration in loop
-        locations1 = np.where(result <= threshold)
+        locations1 = where(result <= threshold)
         locations1 = list(zip(*locations1[::-1]))
 
         if locations1:
-            print('Needle found.')
+            print('Found needle.')
             list_of_tiles.remove(list_of_bundles[i])
         else:
             print('Needle not found.')
@@ -177,7 +167,7 @@ input_image = sys.argv[2]     # USER PARAM
 
 
 '''Dividing into tiles'''
-number_of_tiles = tile(source_image, "output/", list_of_frames, div_w=2, div_h=2)
+number_of_tiles = tile(source_image, os.getcwd() + r'\output\\', list_of_frames, div_w=2, div_h=2)
 print(range(number_of_tiles))
 # list of images to delete
 list_of_all_frames = list_of_frames.copy()
@@ -206,7 +196,7 @@ thr_grow = float(sys.argv[5])      # USER PARAM
 for i in range(howDeep):
     # CHECKING ERROR IMAGES IN OUTPUT
     for frame in list_of_frames:
-        number_of_tiles = tile(frame.tilefname, "output_temp/", deep_list_of_frames, int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
+        number_of_tiles = tile(frame.tilefname, os.getcwd() + r"\output_temp\\", deep_list_of_frames, int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
         list_of_all_frames = deep_list_of_frames.copy()
         needle_in_hay_stack(input_image, number_of_tiles, deep_list_of_frames, threshold=thr)
         list_to_erase = [not_needle for not_needle in list_of_all_frames if not_needle not in deep_list_of_frames]
