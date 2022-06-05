@@ -249,7 +249,7 @@ for square in list_of_frames:
                 pos.append(flag[3])
         elif flag[0] == '0' and flag[1] !='0':
             pos.append(flag[2])
-    # size (width of line) of the fault frame border
+    # size (width of line) of the fault tile border
     border_right = border_ver_size
     border_left = border_ver_size
     border_top = border_hor_size
