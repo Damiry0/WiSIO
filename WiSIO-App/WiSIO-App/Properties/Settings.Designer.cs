@@ -85,18 +85,6 @@ namespace WiSIO_App.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3")]
-        public string Arg1 {
-            get {
-                return ((string)(this["Arg1"]));
-            }
-            set {
-                this["Arg1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0.02")]
         public string Arg2 {
             get {
@@ -140,6 +128,18 @@ namespace WiSIO_App.Properties {
             }
             set {
                 this["Arg5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public string Arg7 {
+            get {
+                return ((string)(this["Arg7"]));
+            }
+            set {
+                this["Arg7"] = value;
             }
         }
     }
