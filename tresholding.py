@@ -1,3 +1,20 @@
+# Executing tresholding.py:
+#
+# python tresholding.py USER_PARAM_1 USER_PARAM_2 USER_PARAM_3 USER_PARAM_4 USER_PARAM_5 USER_PARAM_6 USER_PARAM_7
+# USER_PARAM_1 - name of the file with good board <type string> - default 'dobra_wycieta.png'
+# USER_PARAM_2 - name of the file with input board <type string> - default 'zla_wycieta.png'
+# USER_PARAM_3 - depth of the algorithm <type int> - default '3'
+# USER_PARAM_4 - detecting threshold for primary layer <type float> - default '0.02'
+# USER_PARAM_5 - tolerance level update <type float> - default '0.06'
+# USER_PARAM_6 - divider of image width (X axis) <type int> - default '2'
+# USER_PARAM_7 - divider of image height (Y axis) <type int> - default '2'
+#
+# Executing:
+# tresholding.py dobra_wycieta.png zla_wycieta.png 3 0.02 0.06 2 2
+#
+# Program saves output file with faults as 'final_board.png' in boards directory
+
+
 import cv2 as cv
 import numpy as np
 import os
@@ -53,7 +70,7 @@ class Fragment:
 # Tiles are saved in given location as images.
 def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     """
-    @param filename: name of the photo that needs to be divided
+    @param filename: name of the image that needs to be divided
     @param dir_out: name of the directory to stash the tiles
     @param tile_list: a list in which names and offset of the tiles will be saved
     @param div_w: divider of image width
@@ -68,8 +85,8 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     w_tile = int(w/div_w)
     h_tile = int(h/div_h)
     k = 0
-    print("strata pikseli: h, h_tile, h % h_tile", h, h_tile, h % h_tile)
-    print("strata pikseli w, w_tile, w % w_tile", w, w_tile, w % w_tile)
+    print("Pixel loss: h, h_tile, h % h_tile", h, h_tile, h % h_tile)
+    print("Pixel loss: w, w_tile, w % w_tile", w, w_tile, w % w_tile)
 
     grid = product(range(0, h - h % h_tile, h_tile), range(0, w - w % w_tile, w_tile))
     for i, j in grid:
@@ -129,13 +146,13 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
         needle_img = cv.imread(list_of_bundles[i].tilefname, 0)
 
         result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
-        # I've inverted the threshold and ???where??? comparison to work with TM_SQDIFF_NORMED
+        # Inverted threshold to work with TM_SQDIFF_NORMED
         locations = np.where(result <= threshold)
         list2 = [None] * len(locations[0])
         # Writing necessary data to a separate list
         for n in range(len(locations[0])):
             list2[n] = result[locations[0][n]][locations[1][n]]
-        # We can zip those up into a list of (x, y) position tuples
+        # Zipping up into a list of (x, y) position tuples
         locations = list(zip(*locations[::1]))
         list1 = [None] * len(locations)
         # Zipping a new list for later iteration in loop
@@ -143,44 +160,10 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
         locations1 = list(zip(*locations1[::-1]))
 
         if locations1:
-            # Getting index of most similar image
-            # location_index = list2.index(min(list2))
-            # location = locations1[location_index]
-            # print('Found needle.')
-            # needle_w = needle_img.shape[1]
-            # needle_h = needle_img.shape[0]
-            # line_color = (120, 120, 0)
-            # line_type = cv.LINE_4
-            # Drawing a rectangle
-            # Determine the box positions
-            # top_left = location
-            # bottom_right = (top_left[0] + needle_w, top_left[1] + needle_h)
-            # Draw the box
-            # cv.rectangle(haystack_img, top_left, bottom_right, line_color, line_type)
-            # res = cv.resize(haystack_img, (960, 540))
-            # cv.imshow('Matches', res)
-            # cv.waitKey()
+            print('Needle found.')
             list_of_tiles.remove(list_of_bundles[i])
         else:
             print('Needle not found.')
-
-# Sposób wywołania pliku tresholding.py:
-#
-# python tresholding.py USER_PARAM_1 USER_PARAM_2 USER_PARAM_3 USER_PARAM_4 USER_PARAM_5 USER_PARAM_6 USER_PARAM_7
-# USER_PARAM_1 - nazwa pliku ze zdjęciem dobrej płytki <typ string> - default 'dobra_wycieta.png'
-# USER_PARAM_2 - nazwa pliku ze zdjęciem złej płytki <typ string> - default 'zla_wycieta.png'
-# USER_PARAM_3 - stopień głębokości algorytmu <typ int> - default '3'
-# USER_PARAM_4 - próg wykrywania pierwszej warstwy <typ float> - default '0.02'
-# USER_PARAM_5 - zwiększenie progu co warstwę <typ float> - default '0.06'
-# USER_PARAM_6 - parametr dzielenia płytki w osi X <typ int> - default '2'
-# USER_PARAM_7 - parametr dzielenia płytki w osi Y <typ int> - default '2'
-#
-# Wywołanie:
-# tresholding.py dobra_wycieta.png zla_wycieta.png 3 0.02 0.06 2 2
-#
-#
-#
-# Program zapisuje plik wynikowy z zaznaczonymi błędami do pliku 'final_board.png' oraz wyświetla go na ekranie
 
 
 # list of errors to display
@@ -200,15 +183,14 @@ print(range(number_of_tiles))
 list_of_all_frames = list_of_frames.copy()
 
 '''Searching for every element from "output" in input frame'''
-print('Dlugosc przed:', len(list_of_frames))
+# print('Dlugosc przed:', len(list_of_frames))
 needle_in_hay_stack(input_image, number_of_tiles, list_of_frames, threshold=0.02)
-print('Dlugosc po', len(list_of_frames))
+# print('Dlugosc po', len(list_of_frames))
 
 # All frames - not_needle frames = list of needle frames that should be erased from "output"
 # Example: We divided source image into 100 tiles. In input image we found 90 of them, and the rest we did not find.
 # We don't need the ones we found, so we delete them, and analyse only the remaining 10.
 list_to_erase = [not_needle for not_needle in list_of_all_frames if not_needle not in list_of_frames]
-print('Dlugosc listy do usuniecia', len(list_to_erase))
 
 # deleting found frames
 for item in list_to_erase:
@@ -233,7 +215,7 @@ for i in range(howDeep):
             os.remove(item.tilefname)
 
     # PUTTING subFRAMES INTO OUTPUT AND CHANGING list_of_frames - now subframes become frames
-    # removing files from output, to make place for
+    # removing files from output
     for path in os.scandir('output/'):
         if path.is_file():
             os.remove(path)
@@ -263,7 +245,6 @@ value = [255, 255, 255]
 for square in list_of_frames:
     pos = []
     for item in list_of_frames:
-        flag = []  # DO WYWALENIA TA LINIA? Nie lul
         flag = check_adjacent(w_tile, h_tile, square.offset[0], item.offset[0], square.offset[1], item.offset[1])
         if flag[0] != '0':
             pos.append(flag[1])
@@ -271,7 +252,7 @@ for square in list_of_frames:
                 pos.append(flag[3])
         elif flag[0] == '0' and flag[1] !='0':
             pos.append(flag[2])
-    print("pos flag :", pos)
+    # width of the error frame border
     border_right = 5
     border_left = 5
     border_top = 5
@@ -292,9 +273,6 @@ for square in list_of_frames:
 
     Image1copy.paste(temp_img, (square.offset[0] - border_left ,square.offset[1] - border_top))
 
-
 Image1copy.save("final_board.png")
-Image1copy.show()
-
 
 

@@ -1,7 +1,9 @@
 import cv2
+import os
 
+os.chdir('../boards')
 # read image
-img = cv2.imread('../boards/3defects.jpg')
+img = cv2.imread('dobra_wycieta.png')
 
 # get dimensions of image
 dimensions = img.shape
