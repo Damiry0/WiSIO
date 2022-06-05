@@ -14,11 +14,6 @@
 #
 # Program saves output file with faults as 'final_board.png' in boards directory
 
-'''
-
-    temp_img = Image.open(square.tilefname)
-'''
-
 # import cv2 as cv
 from cv2 import imread, imwrite, matchTemplate, TM_SQDIFF_NORMED, IMREAD_COLOR, copyMakeBorder, BORDER_CONSTANT
 import os
@@ -201,7 +196,8 @@ thr_grow = float(sys.argv[5])      # USER PARAM
 for i in range(howDeep):
     # CHECKING ERROR IMAGES IN OUTPUT
     for frame in list_of_frames:
-        number_of_tiles = tile(frame.tilefname, os.getcwd() + r"\output_temp", deep_list_of_frames, int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
+        number_of_tiles = tile(frame.tilefname, os.getcwd() + r"\output_temp", deep_list_of_frames,
+                               int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
         list_of_all_frames = deep_list_of_frames.copy()
         needle_in_hay_stack(input_image, number_of_tiles, deep_list_of_frames, threshold=thr)
         list_to_erase = [not_needle for not_needle in list_of_all_frames if not_needle not in deep_list_of_frames]
@@ -236,13 +232,13 @@ h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
 
 print("Tile width", w_tile)
 print("Tile height", h_tile)
-value = [255, 255, 255]
+value = [240, 38, 38]
 
 border_hor_size = int((2*5*Image1.size[0]*Image1.size[1])/4410944)
 border_ver_size = border_hor_size
 grid_size = int((2*1*Image1.size[0]*Image1.size[1])/4410944)
-print(border_hor_size)
-print(grid_size)
+
+
 for square in list_of_frames:
     pos = []
     for item in list_of_frames:
@@ -253,7 +249,7 @@ for square in list_of_frames:
                 pos.append(flag[3])
         elif flag[0] == '0' and flag[1] !='0':
             pos.append(flag[2])
-    # width of the fault frame border
+    # size (width of line) of the fault frame border
     border_right = border_ver_size
     border_left = border_ver_size
     border_top = border_hor_size
@@ -268,11 +264,11 @@ for square in list_of_frames:
          border_bottom = grid_size
 
     src = imread(square.tilefname, IMREAD_COLOR)
-    dst = copyMakeBorder(src, border_top, border_bottom, border_left, border_right, BORDER_CONSTANT, None,value)
+    dst = copyMakeBorder(src, border_top, border_bottom, border_left, border_right, BORDER_CONSTANT, None, value)
     imwrite(square.tilefname, dst)
     temp_img = Image.open(square.tilefname)
 
-    Image1copy.paste(temp_img, (square.offset[0] - border_left ,square.offset[1] - border_top))
+    Image1copy.paste(temp_img, (square.offset[0] - border_left, square.offset[1] - border_top))
 
 Image1copy.save("final_board.png")
 
