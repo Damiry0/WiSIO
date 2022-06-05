@@ -196,7 +196,7 @@ thr_grow = float(sys.argv[5])      # USER PARAM
 for i in range(howDeep):
     # CHECKING ERROR IMAGES IN OUTPUT
     for frame in list_of_frames:
-        number_of_tiles = tile(frame.tilefname, os.getcwd() + r"\output_temp\\", deep_list_of_frames, int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
+        number_of_tiles = tile(frame.tilefname, os.getcwd() + r"\output_temp", deep_list_of_frames, int(sys.argv[6]), int(sys.argv[7]), offset=frame.offset)
         list_of_all_frames = deep_list_of_frames.copy()
         needle_in_hay_stack(input_image, number_of_tiles, deep_list_of_frames, threshold=thr)
         list_to_erase = [not_needle for not_needle in list_of_all_frames if not_needle not in deep_list_of_frames]
@@ -216,7 +216,7 @@ for i in range(howDeep):
 
     # changing list of frames
     for item in deep_list_of_frames:
-        item.tilefname = 'output/' + item.tilefname.split('/')[-1]
+        item.tilefname = 'output\\' + item.tilefname.split('\\')[-1]
         print(item.tilefname)
 
     list_of_frames = deep_list_of_frames.copy()
@@ -233,10 +233,11 @@ print("Tile width", w_tile)
 print("Tile height", h_tile)
 value = [255, 255, 255]
 
-border_hor_size = int((5*Image1.size[0]*Image1.size[1])/4410944)
+border_hor_size =  int((2*5*Image1.size[0]*Image1.size[1])/4410944)
 border_ver_size = border_hor_size
-grid_size = int((1*Image1.size[0]*Image1.size[1])/4410944)
-
+grid_size = int((2*1*Image1.size[0]*Image1.size[1])/4410944)
+print(border_hor_size)
+print(grid_size)
 for square in list_of_frames:
     pos = []
     for item in list_of_frames:
