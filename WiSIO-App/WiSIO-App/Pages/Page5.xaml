@@ -16,7 +16,7 @@
                 <hc:CompareSlider.TargetContent>
                     <Border Name="TargetBorder">
                         <Border.Background>
-                            <ImageBrush  />
+                            <ImageBrush/>
                         </Border.Background>
                     </Border>
                 </hc:CompareSlider.TargetContent>
@@ -29,9 +29,7 @@
                 </hc:CompareSlider.SourceContent>
             </hc:CompareSlider>
             <hc:ImageViewer Margin="10" Background="{DynamicResource SecondaryRegionBrush}" Width="460" Height="260" Name="ImageViewer"/>
-
         </WrapPanel>
-
 
         <Label Content="Wykonane zdjęcia" Margin="205,60,0,0" Style="{DynamicResource LabelPrimary}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="Przetworzone zdjęcie" Margin="690,60,0,0" Style="{DynamicResource LabelPrimary}" HorizontalAlignment="Left" VerticalAlignment="Top"/>

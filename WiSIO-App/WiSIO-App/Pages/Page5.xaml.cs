@@ -30,8 +30,7 @@ namespace WiSIO_App.Pages
 
         public void GenerateResults()
         {
-            try
-            {
+           
                 var bi3 = new BitmapImage();
                 bi3.BeginInit();
                 bi3.UriSource = new Uri(Properties.Settings.Default.Image1, UriKind.Absolute);
@@ -44,11 +43,6 @@ namespace WiSIO_App.Pages
                 SourceBorder.Background = new ImageBrush(bi4);
 
                 ImageViewer.ImageSource = BitmapFrame.Create(new Uri(ProjectSourcePath.Value +"tresholding\\boards\\final_board.png", UriKind.Absolute));
-            }
-            catch (UriFormatException)
-            {
-                Growl.Warning("Nie podano zdjęcia do przetworzenia!");
-            }
         }
     }
 }
