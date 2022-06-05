@@ -100,7 +100,7 @@ namespace WiSIO_App
             {
                 try
                 {
-                    await RunPatternMatchingAlgorithm();
+                    RunPatternMatchingAlgorithm();
                     var page5 = pageList[4];
                     var page = (Page5)page5;
                     page.GenerateResults();
@@ -119,37 +119,40 @@ namespace WiSIO_App
             pageList[step.StepIndex].Show();
         }
 
-        private async Task RunPatternMatchingAlgorithm()
+        private void RunPatternMatchingAlgorithm()
         {
-           
             var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
             var process = new Process
             {
                 StartInfo =
                 {
                     FileName = filename,
-                    Arguments = $"{Properties.Settings.Default.Image1} {Properties.Settings.Default.Image2} {Properties.Settings.Default.Arg1} {Properties.Settings.Default.Arg2} {Properties.Settings.Default.Arg3} {Properties.Settings.Default.Arg4} {Properties.Settings.Default.Arg5}",
+                    Arguments = $"{Properties.Settings.Default.Image1} {Properties.Settings.Default.Image2} {Properties.Settings.Default.Arg7} {Properties.Settings.Default.Arg2} {Properties.Settings.Default.Arg3} {Properties.Settings.Default.Arg4} {Properties.Settings.Default.Arg5}",
                     CreateNoWindow = true,
-                    ErrorDialog = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
-                }
+                },
+                EnableRaisingEvents = true,
             };
-            process.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
-            process.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
+            process.OutputDataReceived += OutputHandler;
+            process.ErrorDataReceived += OutputHandler;
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-            await process.WaitForExitAsync();
         }
-        private void OutputHandler(object sendingProcess, DataReceivedEventArgs outLine)
+        private void OutputHandler(object sendingProcess, DataReceivedEventArgs e)
         {
-            Application.Current.Dispatcher.BeginInvoke (
-                System.Windows.Threading.DispatcherPriority.Send, (Action)delegate
+            if (e.Data != null)
+                Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Send, (Action)delegate
                 {
-                    placee.AppendText(outLine.Data);
-                    placee.AppendText(Environment.NewLine);
+                    var page3 = pageList[3];
+                    var page = (Page3)page3;
+                    page.OutputBox.AppendText(e.Data);
+                    page.OutputBox.AppendText(Environment.NewLine);
+                    page.OutputBox.Focus();
+                    page.OutputBox.CaretIndex = page.OutputBox.Text.Length;
+                    page.OutputBox.ScrollToEnd();
                 });
         }
     }
