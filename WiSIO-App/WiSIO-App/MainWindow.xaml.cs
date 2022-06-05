@@ -114,7 +114,7 @@ namespace WiSIO_App
            
             var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
             var proc = System.Diagnostics.Process.Start(filename,
-                $"dobra_wycieta.png zla_wycieta.png 3 0.02 0.06 2 2");
+                $"{Properties.Settings.Default.Image1} {Properties.Settings.Default.Image2} {Properties.Settings.Default.Arg1} {Properties.Settings.Default.Arg2} {Properties.Settings.Default.Arg3} {Properties.Settings.Default.Arg4} {Properties.Settings.Default.Arg5}");
             proc?.WaitForExit();
         }
     }

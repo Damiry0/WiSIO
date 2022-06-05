@@ -82,5 +82,65 @@ namespace WiSIO_App.Properties {
                 this["Image2"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public string Arg1 {
+            get {
+                return ((string)(this["Arg1"]));
+            }
+            set {
+                this["Arg1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.02")]
+        public string Arg2 {
+            get {
+                return ((string)(this["Arg2"]));
+            }
+            set {
+                this["Arg2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.06")]
+        public string Arg3 {
+            get {
+                return ((string)(this["Arg3"]));
+            }
+            set {
+                this["Arg3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string Arg4 {
+            get {
+                return ((string)(this["Arg4"]));
+            }
+            set {
+                this["Arg4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string Arg5 {
+            get {
+                return ((string)(this["Arg5"]));
+            }
+            set {
+                this["Arg5"] = value;
+            }
+        }
     }
 }

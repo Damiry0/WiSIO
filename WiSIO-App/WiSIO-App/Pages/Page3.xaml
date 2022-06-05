@@ -12,11 +12,11 @@
     <Grid>
         
      <StackPanel Margin="0,30,700,0" Width="250">
-         <TextBox Name="DepthOfAlgorithm" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Stopień głębokości algorytmu:"  />
-         <TextBox Name="FirstLayerThreshold" Style="{StaticResource TextBoxExtend}"   hc:InfoElement.Title="Próg wykrywania pierwszej warstwy:"  VerticalAlignment="Top" Margin="0,30,0,0" />
-         <TextBox Name="ThresholdPerLayer"  Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Zwiększenie progu co warstwę:"  VerticalAlignment="Top" Margin="0,30,0,0" />
-         <TextBox Name="ArgumentX" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Parametr dzielenia płytki w osi X:"  VerticalAlignment="Top" Margin="0,30,0,0" />
-         <TextBox Name="ArgumentY" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Parametr dzielenia płytki w osi Y:"  VerticalAlignment="Top" Margin="0,30,0,0" />
+         <TextBox hc:InfoElement.Placeholder="Domyślnie: 3" TextChanged="DepthOfAlgorithm_OnTextChanged"   Name="DepthOfAlgorithm" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Stopień głębokości algorytmu:"  />
+         <TextBox hc:InfoElement.Placeholder="Domyślnie: 0.02" Style="{StaticResource TextBoxExtend}" TextChanged="FirstLayerThreshold_OnTextChanged" Name="FirstLayerThreshold" hc:InfoElement.Title="Próg wykrywania pierwszej warstwy:"  VerticalAlignment="Top" Margin="0,30,0,0" />
+         <TextBox hc:InfoElement.Placeholder="Domyślnie: 0.06"  Style="{StaticResource TextBoxExtend}"  Name="ThresholdPerLayer"  hc:InfoElement.Title="Zwiększenie progu co warstwę:"  VerticalAlignment="Top" Margin="0,30,0,0" />
+         <TextBox hc:InfoElement.Placeholder="Domyślnie: 2" Style="{StaticResource TextBoxExtend}" Name="ArgumentX" hc:InfoElement.Title="Parametr dzielenia płytki w osi X:"  VerticalAlignment="Top" Margin="0,30,0,0" />
+         <TextBox hc:InfoElement.Placeholder="Domyślnie: 2" Style="{StaticResource TextBoxExtend}" Name="ArgumentY"  hc:InfoElement.Title="Parametr dzielenia płytki w osi Y:"  VerticalAlignment="Top" Margin="0,30,0,0" />
      </StackPanel>
     </Grid>
 </Page>
