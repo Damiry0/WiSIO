@@ -24,5 +24,50 @@ namespace WiSIO_App.Pages
         {
             InitializeComponent();
         }
+
+        private void DepthOfAlgorithm_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Properties.Settings.Default.Arg1 = DepthOfAlgorithm.Text;
+            if (DepthOfAlgorithm.Text == "")
+            {
+                Properties.Settings.Default.Arg1 = "3";
+            }
+        }
+
+        private void FirstLayerThreshold_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Properties.Settings.Default.Arg2 = DepthOfAlgorithm.Text;
+            if (DepthOfAlgorithm.Text == "")
+            {
+                Properties.Settings.Default.Arg2 = "0.02";
+            }
+        }
+
+        private void ThresholdPerLayer_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Properties.Settings.Default.Arg3 = DepthOfAlgorithm.Text;
+            if (DepthOfAlgorithm.Text == "")
+            {
+                Properties.Settings.Default.Arg3 = "0.06";
+            }
+        }
+
+        private void ArgumentX_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Properties.Settings.Default.Arg4 = DepthOfAlgorithm.Text;
+            if (DepthOfAlgorithm.Text == "")
+            {
+                Properties.Settings.Default.Arg4 = "2";
+            }
+        }
+
+        private void ArgumentY_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            Properties.Settings.Default.Arg5 = DepthOfAlgorithm.Text;
+            if (DepthOfAlgorithm.Text == "")
+            {
+                Properties.Settings.Default.Arg5 = "2";
+            }
+        }
     }
 }
