@@ -12,32 +12,32 @@
     <Grid>
 
         <StackPanel Margin="0,30,700,0" Width="250">
-            <hc:TextBox TextType="PInt" hc:InfoElement.RegexPattern="^[0-9]*(?:\.[0-9]+)?$" hc:InfoElement.Placeholder="Domyślnie: 3" TextChanged="DepthOfAlgorithm_OnTextChanged"   Name="DepthOfAlgorithm" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Stopień głębokości algorytmu 🛈:">
+            <hc:TextBox hc:InfoElement.Placeholder="Domyślnie: 3" TextChanged="DepthOfAlgorithm_OnTextChanged"   Name="DepthOfAlgorithm" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Stopień głębokości algorytmu 🛈:">
                 <hc:Poptip.Instance>
                      <hc:Poptip Content="Placeholder" PlacementType="Left"/>
                 </hc:Poptip.Instance>
             </hc:TextBox>
-            <hc:TextBox TextType="PDouble" hc:InfoElement.RegexPattern="^(?:[1-9]\d*|0)?(?:\.\d+)?$" hc:InfoElement.Placeholder="Domyślnie: 0.02" Style="{StaticResource TextBoxExtend}" TextChanged="FirstLayerThreshold_OnTextChanged" Name="FirstLayerThreshold" hc:InfoElement.Title="Próg wykrywania pierwszej warstwy 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
+            <hc:TextBox  hc:InfoElement.Placeholder="Domyślnie: 0.02" Style="{StaticResource TextBoxExtend}" TextChanged="FirstLayerThreshold_OnTextChanged" Name="FirstLayerThreshold" hc:InfoElement.Title="Próg wykrywania pierwszej warstwy 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
                 <hc:Poptip.Instance>
                     <hc:Poptip Content="Placeholder" PlacementType="Left"/>
                 </hc:Poptip.Instance>
             </hc:TextBox>
-            <hc:TextBox TextType="PDouble" hc:InfoElement.RegexPattern="^(?:[1-9]\d*|0)?(?:\.\d+)?$" hc:InfoElement.Placeholder="Domyślnie: 0.06"  Style="{StaticResource TextBoxExtend}" TextChanged="ThresholdPerLayer_OnTextChanged" Name="ThresholdPerLayer"  hc:InfoElement.Title="Zwiększenie progu co warstwę 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
+            <hc:TextBox  hc:InfoElement.Placeholder="Domyślnie: 0.06"  Style="{StaticResource TextBoxExtend}" TextChanged="ThresholdPerLayer_OnTextChanged" Name="ThresholdPerLayer"  hc:InfoElement.Title="Zwiększenie progu co warstwę 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
                 <hc:Poptip.Instance>
                     <hc:Poptip Content="Placeholder" PlacementType="Left"/>
                 </hc:Poptip.Instance>
             </hc:TextBox>
-            <hc:TextBox TextType="PInt" hc:InfoElement.RegexPattern="^[1-9]\d*$" hc:InfoElement.Placeholder="Domyślnie: 2" Style="{StaticResource TextBoxExtend}" TextChanged="ArgumentX_OnTextChanged" Name="ArgumentX" hc:InfoElement.Title="Parametr dzielenia płytki w osi X 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
+            <hc:TextBox  hc:InfoElement.Placeholder="Domyślnie: 2" Style="{StaticResource TextBoxExtend}" TextChanged="ArgumentX_OnTextChanged" Name="ArgumentX" hc:InfoElement.Title="Parametr dzielenia płytki w osi X 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
                 <hc:Poptip.Instance>
                     <hc:Poptip Content="Placeholder" PlacementType="Left"/>
                 </hc:Poptip.Instance>
             </hc:TextBox>
-            <hc:TextBox TextType="PInt" hc:InfoElement.RegexPattern="^[1-9]\d*$" hc:InfoElement.Placeholder="Domyślnie: 2" Style="{StaticResource TextBoxExtend}" TextChanged="ArgumentY_OnTextChanged" Name="ArgumentY"  hc:InfoElement.Title="Parametr dzielenia płytki w osi Y 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
+            <hc:TextBox  hc:InfoElement.Placeholder="Domyślnie: 2" Style="{StaticResource TextBoxExtend}" TextChanged="ArgumentY_OnTextChanged" Name="ArgumentY"  hc:InfoElement.Title="Parametr dzielenia płytki w osi Y 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
                 <hc:Poptip.Instance>
                     <hc:Poptip Content="Placeholder" PlacementType="Left"/>
                 </hc:Poptip.Instance>
             </hc:TextBox>
         </StackPanel>
-        <hc:TextBox Name="OutputBox" HorizontalAlignment="Left" Margin="280,55,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="435" Height="305"/>
+        <hc:TextBox  VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Name="OutputBox" HorizontalAlignment="Left" Margin="280,55,0,0" TextWrapping="Wrap" Width="435" Height="305"/>
     </Grid>
 </Page>

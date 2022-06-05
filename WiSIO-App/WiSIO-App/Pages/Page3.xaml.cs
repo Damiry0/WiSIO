@@ -29,15 +29,15 @@ namespace WiSIO_App.Pages
 
         private void DepthOfAlgorithm_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var match = Regex.Match(DepthOfAlgorithm.Text, @"^[0-9]*(?:\.[0-9]+)?$", RegexOptions.IgnoreCase);
+            var match = Regex.Match(DepthOfAlgorithm.Text, @"^(0|-*[1-9]+[0-9]*)$");
             if (match.Success)
             {
-                Properties.Settings.Default.Arg1 = DepthOfAlgorithm.Text;
+                Properties.Settings.Default.Arg7 = DepthOfAlgorithm.Text;
                 Properties.Settings.Default.Save();
             }
             else if (DepthOfAlgorithm.Text == "")
             {
-                Properties.Settings.Default.Arg1 = "3";
+                Properties.Settings.Default.Arg7 = "3";
                 Properties.Settings.Default.Save();
             }
             else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
