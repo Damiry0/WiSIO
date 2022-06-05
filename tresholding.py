@@ -14,8 +14,13 @@
 #
 # Program saves output file with faults as 'final_board.png' in boards directory
 
+'''
 
-import cv2 as cv
+    temp_img = Image.open(square.tilefname)
+'''
+
+# import cv2 as cv
+from cv2 import imread, imwrite, matchTemplate, TM_SQDIFF_NORMED, IMREAD_COLOR, copyMakeBorder, BORDER_CONSTANT
 import os
 import shutil
 import sys
@@ -132,10 +137,10 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
     """
     list_of_bundles = list_of_tiles.copy()
     for i in range(number_of_photos):
-        haystack_img = cv.imread(haystack_name, 0)
-        needle_img = cv.imread(list_of_bundles[i].tilefname, 0)
+        haystack_img = imread(haystack_name, 0)
+        needle_img = imread(list_of_bundles[i].tilefname, 0)
 
-        result = cv.matchTemplate(haystack_img, needle_img, cv.TM_SQDIFF_NORMED)
+        result = matchTemplate(haystack_img, needle_img, TM_SQDIFF_NORMED)
         # Inverted threshold to work with TM_SQDIFF_NORMED
         locations = where(result <= threshold)
         list2 = [None] * len(locations[0])
@@ -233,7 +238,7 @@ print("Tile width", w_tile)
 print("Tile height", h_tile)
 value = [255, 255, 255]
 
-border_hor_size =  int((2*5*Image1.size[0]*Image1.size[1])/4410944)
+border_hor_size = int((2*5*Image1.size[0]*Image1.size[1])/4410944)
 border_ver_size = border_hor_size
 grid_size = int((2*1*Image1.size[0]*Image1.size[1])/4410944)
 print(border_hor_size)
@@ -262,9 +267,9 @@ for square in list_of_frames:
     if 'B' in pos:
          border_bottom = grid_size
 
-    src = cv.imread(square.tilefname, cv.IMREAD_COLOR)
-    dst = cv.copyMakeBorder(src, border_top, border_bottom, border_left, border_right, cv.BORDER_CONSTANT, None,value)
-    cv.imwrite(square.tilefname, dst)
+    src = imread(square.tilefname, IMREAD_COLOR)
+    dst = copyMakeBorder(src, border_top, border_bottom, border_left, border_right, BORDER_CONSTANT, None,value)
+    imwrite(square.tilefname, dst)
     temp_img = Image.open(square.tilefname)
 
     Image1copy.paste(temp_img, (square.offset[0] - border_left ,square.offset[1] - border_top))
