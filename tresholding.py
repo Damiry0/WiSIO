@@ -242,6 +242,11 @@ h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
 print("Tile width", w_tile)
 print("Tile height", h_tile)
 value = [255, 255, 255]
+
+border_hor_size = int((5*Image1.size[0]*Image1.size[1])/4410944)
+border_ver_size = border_hor_size
+grid_size = int((1*Image1.size[0]*Image1.size[1])/4410944)
+
 for square in list_of_frames:
     pos = []
     for item in list_of_frames:
@@ -252,19 +257,19 @@ for square in list_of_frames:
                 pos.append(flag[3])
         elif flag[0] == '0' and flag[1] !='0':
             pos.append(flag[2])
-    # width of the error frame border
-    border_right = 5
-    border_left = 5
-    border_top = 5
-    border_bottom = 5
+    # width of the fault frame border
+    border_right = border_ver_size
+    border_left = border_ver_size
+    border_top = border_hor_size
+    border_bottom = border_hor_size
     if 'R' in pos:
-         border_right = 1
+         border_right = grid_size
     if 'L' in pos:
-         border_left = 1
+         border_left = grid_size
     if 'T' in pos:
-         border_top = 1
+         border_top = grid_size
     if 'B' in pos:
-         border_bottom = 1
+         border_bottom = grid_size
 
     src = cv.imread(square.tilefname, cv.IMREAD_COLOR)
     dst = cv.copyMakeBorder(src, border_top, border_bottom, border_left, border_right, cv.BORDER_CONSTANT, None,value)
