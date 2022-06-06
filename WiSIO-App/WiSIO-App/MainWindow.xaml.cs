@@ -38,6 +38,7 @@ namespace WiSIO_App
             FrameMain.NavigationService.Navigate(pageList[step.StepIndex]);
             FrameMain.NavigationUIVisibility = NavigationUIVisibility.Hidden;
             pageList[step.StepIndex].Show();
+            Properties.Settings.Default.Reset();
             
         }
 
@@ -127,6 +128,8 @@ namespace WiSIO_App
 
         private async Task RunPatternMatchingAlgorithm()
         {
+            if(System.IO.File.Exists(ProjectSourcePath.Value +"tresholding\\boards\\final_board.png"))
+                System.IO.File.Delete(ProjectSourcePath.Value +"tresholding\\boards\\final_board.png");
             var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
             var process = new Process
             {

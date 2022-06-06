@@ -39,10 +39,11 @@ namespace WiSIO_App.Pages
                 var bi4 = new BitmapImage();
                 bi4.BeginInit();
                 bi4.UriSource = new Uri(Properties.Settings.Default.Image2, UriKind.Absolute);
+                bi4.CacheOption = BitmapCacheOption.OnLoad;
                 bi4.EndInit();
                 SourceBorder.Background = new ImageBrush(bi4);
 
-                ImageViewer.ImageSource = BitmapFrame.Create(new Uri(ProjectSourcePath.Value +"tresholding\\boards\\final_board.png", UriKind.Absolute));
+                ImageViewer.ImageSource = BitmapFrame.Create(new Uri(ProjectSourcePath.Value +"tresholding\\boards\\final_board.png", UriKind.Absolute),BitmapCreateOptions.None,BitmapCacheOption.OnLoad);
         }
     }
 }
