@@ -167,7 +167,7 @@ input_image = sys.argv[2]     # USER PARAM
 
 
 '''Dividing into tiles'''
-number_of_tiles = tile(source_image, os.getcwd() + r'\output\\', list_of_frames, div_w=2, div_h=2)
+number_of_tiles = tile(source_image, os.getcwd() + r'\output\\', list_of_frames, div_w=5, div_h=5)
 print(range(number_of_tiles),flush=True)
 # list of images to delete
 list_of_all_frames = list_of_frames.copy()
@@ -232,7 +232,7 @@ h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
 
 print("Tile width", w_tile,flush=True)
 print("Tile height", h_tile,flush=True)
-value = [240, 38, 38]
+value = [255, 0, 255]
 
 border_hor_size = int((2*5*Image1.size[0]*Image1.size[1])/4410944)
 border_ver_size = border_hor_size
