@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:WiSIO_App.Pages"
       xmlns:hc="https://handyorg.github.io/handycontrol"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="600" d:DesignWidth="1000"
       Title="Page3">
 
     <Grid>
@@ -14,7 +14,7 @@
         <StackPanel Margin="0,30,700,0" Width="250">
             <hc:TextBox hc:InfoElement.Placeholder="Domyślnie: 3" TextChanged="DepthOfAlgorithm_OnTextChanged"   Name="DepthOfAlgorithm" Style="{StaticResource TextBoxExtend}"  hc:InfoElement.Title="Stopień głębokości algorytmu 🛈:">
                 <hc:Poptip.Instance>
-                     <hc:Poptip Content="Placeholder" PlacementType="Left"/>
+                    <hc:Poptip Content="Placeholder" PlacementType="Left"/>
                 </hc:Poptip.Instance>
             </hc:TextBox>
             <hc:TextBox  hc:InfoElement.Placeholder="Domyślnie: 0.02" Style="{StaticResource TextBoxExtend}" TextChanged="FirstLayerThreshold_OnTextChanged" Name="FirstLayerThreshold" hc:InfoElement.Title="Próg wykrywania pierwszej warstwy 🛈:"  VerticalAlignment="Top" Margin="0,30,0,0" >
@@ -38,6 +38,6 @@
                 </hc:Poptip.Instance>
             </hc:TextBox>
         </StackPanel>
-        <hc:TextBox  VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Name="OutputBox" HorizontalAlignment="Left" Margin="280,55,0,0" TextWrapping="Wrap" Width="435" Height="305"/>
+        <hc:TextBox hc:InfoElement.Placeholder="Oczekiwanie.." IsReadOnly="True" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Name="OutputBox"  Margin="500,30,0,0" TextWrapping="Wrap" Width="435" Height="380"/>
     </Grid>
 </Page>

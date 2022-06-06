@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using HandyControl.Controls;
 using HandyControl.Themes;
@@ -100,10 +101,13 @@ namespace WiSIO_App
             {
                 try
                 {
-                    RunPatternMatchingAlgorithm();
+                    NextButton.IsEnabled=false;
+                    PrevButton.IsEnabled = false;
+                    await RunPatternMatchingAlgorithm();
                     var page5 = pageList[4];
                     var page = (Page5)page5;
                     page.GenerateResults();
+
                 }
                 catch (UriFormatException)
                 {
@@ -117,9 +121,11 @@ namespace WiSIO_App
             }
             FrameMain.NavigationService.Navigate(pageList[step.StepIndex]);
             pageList[step.StepIndex].Show();
+            PrevButton.IsEnabled = true;
+            NextButton.IsEnabled=true;
         }
 
-        private void RunPatternMatchingAlgorithm()
+        private async Task RunPatternMatchingAlgorithm()
         {
             var filename = Path.Combine(ProjectSourcePath.Value,"tresholding\\tresholding.exe");
             var process = new Process
@@ -140,7 +146,10 @@ namespace WiSIO_App
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
+            await process.WaitForExitAsync();
         }
+
+
         private void OutputHandler(object sendingProcess, DataReceivedEventArgs e)
         {
             if (e.Data != null)

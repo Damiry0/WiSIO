@@ -45,7 +45,7 @@ namespace WiSIO_App.Pages
 
         private void FirstLayerThreshold_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var match = Regex.Match(FirstLayerThreshold.Text, @"^(?:[1-9]\d*|0)?(?:\.\d+)?$", RegexOptions.IgnoreCase);
+            var match = Regex.Match(FirstLayerThreshold.Text, @"/^(?!0\d)\d*(\.\d+)?$/mg", RegexOptions.IgnoreCase);
             if (match.Success)
             {
                 Properties.Settings.Default.Arg2 = FirstLayerThreshold.Text;
@@ -62,7 +62,7 @@ namespace WiSIO_App.Pages
         private void ThresholdPerLayer_OnTextChanged(object sender, TextChangedEventArgs e)
         {
 
-            var match = Regex.Match(ThresholdPerLayer.Text, @"^(?:[1-9]\d*|0)?(?:\.\d+)?$", RegexOptions.IgnoreCase);
+            var match = Regex.Match(ThresholdPerLayer.Text, @"/^(?!0\d)\d*(\.\d+)?$/mg", RegexOptions.IgnoreCase);
             if (match.Success)
             {
                 Properties.Settings.Default.Arg3 = ThresholdPerLayer.Text;
