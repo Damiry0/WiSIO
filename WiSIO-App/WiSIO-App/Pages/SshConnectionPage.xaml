@@ -11,16 +11,16 @@
       Title="SshConnectionPage">
 
     <Grid>
-        <StackPanel Margin="0,150,600                     ,0"  >
+        <StackPanel Margin="0,100,700                     ,0"  >
             <TextBox x:Name="IpBox" Style="{StaticResource TextBoxExtend}" hc:TitleElement.Title="Ip serwera" Width="250" Margin="0,20,0,0" />
             <TextBox x:Name="LoginBox" Style="{StaticResource TextBoxExtend}" hc:TitleElement.Title="Login" Width="250" Margin="0,20,0,0"  />
             <hc:PasswordBox  x:Name="PasswordBox" hc:InfoElement.Placeholder="Wprowadź hasło" ShowEyeButton="True" Width="250" Margin="0,20,0,0"/>
             <hc:ProgressButton Style="{StaticResource ProgressButtonDanger}" x:Name="CheckConnection" Click="CheckConnection_OnClick" Content="Logowanie" Margin="0,20,0,0" />
         </StackPanel>
-        <Button Click="TurnOnOffButton_OnClick" x:Name="TurnOnOffButton" Content="Włacz podgląd" HorizontalAlignment="Left" Margin="642,360,0,0" VerticalAlignment="Top" Width="96"/>
+        <Button Click="TurnOnOffButton_OnClick" x:Name="TurnOnOffButton" Content="Włacz podgląd" HorizontalAlignment="Left" Margin="640,375,0,0" VerticalAlignment="Top" Width="150"/>
 
 
-        <Wpf:WebView2 Name="WebBrowser" HorizontalAlignment="Left"  Margin="475,55,0,0" VerticalAlignment="Top" Width="500" Height="400"/>
+        <Wpf:WebView2 Name="WebBrowser" HorizontalAlignment="Left"  Margin="400,50,0,0" VerticalAlignment="Top" Width="570" Height="316"/>
 
 
     </Grid>

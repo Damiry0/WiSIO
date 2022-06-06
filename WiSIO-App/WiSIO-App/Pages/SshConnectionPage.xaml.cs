@@ -22,6 +22,7 @@ namespace WiSIO_App.Pages
     /// </summary>
     public partial class SshConnectionPage : Page
     {
+        private bool serverStatus = true;
         public SshConnectionPage()
         {
             InitializeComponent();
@@ -56,22 +57,50 @@ namespace WiSIO_App.Pages
 
         private void TurnOnOffButton_OnClick(object sender, RoutedEventArgs e)
         {
-            try
+            if (serverStatus)
             {
-             
-                    using (var client = new SshClient(Properties.Settings.Default.ip, Properties.Settings.Default.login, Properties.Settings.Default.password))
-                    {
-                               client.Connect();
-                               client.RunCommand("nohup python -u rpi_camera.py </dev/null &>/dev/null & ");
-                               client.Disconnect();
-                    }
-                    WebBrowser.Source = new Uri("http://192.168.1.14:8000/index.html");
+                try
+                {
 
+                    using (var client = new SshClient(Properties.Settings.Default.ip, Properties.Settings.Default.login,
+                               Properties.Settings.Default.password))
+                    {
+                        client.Connect();
+                        client.RunCommand("nohup python -u rpi_camera.py </dev/null &>/dev/null & ");
+                        client.Disconnect();
+                    }
+
+                    WebBrowser.Source = new Uri("http://192.168.1.14:8000/index.html");
+                    WebBrowser.Reload();
+                    TurnOnOffButton.Content = "Wyłącz Podgląd";
+                    serverStatus = false;
+
+                }
+                catch
+                {
+                    Growl.Warning("Connection failed!");
+                }
             }
-            catch
+            else
             {
-                Growl.Warning("Connection failed!");
+                try
+                {
+                        using (var client = new SshClient(Properties.Settings.Default.ip, Properties.Settings.Default.login,
+                                   Properties.Settings.Default.password))
+                        {
+                            client.Connect();
+                            client.RunCommand("kill -9 `pgrep -f rpi_camera.py`");
+                            client.Disconnect();
+                        }
+                        TurnOnOffButton.Content = "Włacz Podgląd";
+                        serverStatus = true;
+                }
+                catch (Exception exception) {
+                        Growl.Warning("Connection failed!");
+                }
+                
             }
+
         }
     }
 }
