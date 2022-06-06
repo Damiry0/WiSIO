@@ -53,5 +53,25 @@ namespace WiSIO_App.Pages
             }
             
         }
+
+        private void TurnOnOffButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+             
+                    using (var client = new SshClient(Properties.Settings.Default.ip, Properties.Settings.Default.login, Properties.Settings.Default.password))
+                    {
+                               client.Connect();
+                               client.RunCommand("nohup python -u rpi_camera.py </dev/null &>/dev/null & ");
+                               client.Disconnect();
+                    }
+                    WebBrowser.Source = new Uri("http://192.168.1.14:8000/index.html");
+
+            }
+            catch
+            {
+                Growl.Warning("Connection failed!");
+            }
+        }
     }
 }
