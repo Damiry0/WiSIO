@@ -27,85 +27,136 @@ namespace WiSIO_App.Pages
             InitializeComponent();
         }
 
+        // private void DepthOfAlgorithm_OnTextChanged(object sender, TextChangedEventArgs e)
+        // {
+        //     var match = Regex.Match(DepthOfAlgorithm.Text, @"^(0|-*[1-9]+[0-9]*)$");
+        //     if (match.Success)
+        //     {
+        //         Properties.Settings.Default.Arg7 = DepthOfAlgorithm.Text;
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else if (DepthOfAlgorithm.Text == "")
+        //     {
+        //         Properties.Settings.Default.Arg7 = "3";
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+        // }
+        //
+        // private void FirstLayerThreshold_OnTextChanged(object sender, TextChangedEventArgs e)
+        // {
+        //     var match = Regex.Match(FirstLayerThreshold.Text, @"/^(?!0\d)\d*(\.\d+)?$/mg", RegexOptions.IgnoreCase);
+        //     if (match.Success)
+        //     {
+        //         Properties.Settings.Default.Arg2 = FirstLayerThreshold.Text;
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else if (FirstLayerThreshold.Text == "")
+        //     {
+        //         Properties.Settings.Default.Arg2 = "0.02";
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+        // }
+        //
+        // private void ThresholdPerLayer_OnTextChanged(object sender, TextChangedEventArgs e)
+        // {
+        //
+        //     var match = Regex.Match(ThresholdPerLayer.Text, @"/^(?!0\d)\d*(\.\d+)?$/mg", RegexOptions.IgnoreCase);
+        //     if (match.Success)
+        //     {
+        //         Properties.Settings.Default.Arg3 = ThresholdPerLayer.Text;
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else if (ThresholdPerLayer.Text == "")
+        //     {
+        //         Properties.Settings.Default.Arg3 = "0.06";
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+        // }
+        //
+        // private void ArgumentX_OnTextChanged(object sender, TextChangedEventArgs e)
+        // {
+        //     var match = Regex.Match(ArgumentX.Text, @"^[0-9]*(?:\.[0-9]+)?$", RegexOptions.IgnoreCase);
+        //     if (match.Success)
+        //     {
+        //         Properties.Settings.Default.Arg4 = ArgumentX.Text;
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else if (ArgumentX.Text == "")
+        //     {
+        //         Properties.Settings.Default.Arg4 = "2";
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+        // }
+        //
+        // private void ArgumentY_OnTextChanged(object sender, TextChangedEventArgs e)
+        // {
+        //     var match = Regex.Match(ArgumentY.Text, @"^[0-9]*(?:\.[0-9]+)?$", RegexOptions.IgnoreCase);
+        //     if (match.Success)
+        //     {
+        //         Properties.Settings.Default.Arg5 = ArgumentY.Text;
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else if (ArgumentY.Text == "")
+        //     {
+        //         Properties.Settings.Default.Arg5 = "2";
+        //         Properties.Settings.Default.Save();
+        //     }
+        //     else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+        // }
+
         private void DepthOfAlgorithm_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var match = Regex.Match(DepthOfAlgorithm.Text, @"^(0|-*[1-9]+[0-9]*)$");
-            if (match.Success)
-            {
-                Properties.Settings.Default.Arg7 = DepthOfAlgorithm.Text;
-                Properties.Settings.Default.Save();
-            }
-            else if (DepthOfAlgorithm.Text == "")
+            Properties.Settings.Default.Arg7 = DepthOfAlgorithm.Text;
+            if (DepthOfAlgorithm.Text == "")
             {
                 Properties.Settings.Default.Arg7 = "3";
-                Properties.Settings.Default.Save();
             }
-            else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+          //  Properties.Settings.Default.Save();
         }
 
         private void FirstLayerThreshold_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var match = Regex.Match(FirstLayerThreshold.Text, @"/^(?!0\d)\d*(\.\d+)?$/mg", RegexOptions.IgnoreCase);
-            if (match.Success)
-            {
-                Properties.Settings.Default.Arg2 = FirstLayerThreshold.Text;
-                Properties.Settings.Default.Save();
-            }
-            else if (FirstLayerThreshold.Text == "")
+            Properties.Settings.Default.Arg2 = FirstLayerThreshold.Text;
+            if (FirstLayerThreshold.Text == "")
             {
                 Properties.Settings.Default.Arg2 = "0.02";
-                Properties.Settings.Default.Save();
             }
-            else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+          //  Properties.Settings.Default.Save();
         }
 
         private void ThresholdPerLayer_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-
-            var match = Regex.Match(ThresholdPerLayer.Text, @"/^(?!0\d)\d*(\.\d+)?$/mg", RegexOptions.IgnoreCase);
-            if (match.Success)
-            {
-                Properties.Settings.Default.Arg3 = ThresholdPerLayer.Text;
-                Properties.Settings.Default.Save();
-            }
-            else if (ThresholdPerLayer.Text == "")
+            Properties.Settings.Default.Arg3 = ThresholdPerLayer.Text;
+            if (ThresholdPerLayer.Text == "")
             {
                 Properties.Settings.Default.Arg3 = "0.06";
-                Properties.Settings.Default.Save();
             }
-            else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+           // Properties.Settings.Default.Save();
         }
 
         private void ArgumentX_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var match = Regex.Match(ArgumentX.Text, @"^[0-9]*(?:\.[0-9]+)?$", RegexOptions.IgnoreCase);
-            if (match.Success)
-            {
-                Properties.Settings.Default.Arg4 = ArgumentX.Text;
-                Properties.Settings.Default.Save();
-            }
-            else if (ArgumentX.Text == "")
+            Properties.Settings.Default.Arg4 = ArgumentX.Text;
+            if (ArgumentX.Text == "")
             {
                 Properties.Settings.Default.Arg4 = "2";
-                Properties.Settings.Default.Save();
             }
-            else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+          //  Properties.Settings.Default.Save();
         }
 
         private void ArgumentY_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            var match = Regex.Match(ArgumentY.Text, @"^[0-9]*(?:\.[0-9]+)?$", RegexOptions.IgnoreCase);
-            if (match.Success)
-            {
-                Properties.Settings.Default.Arg5 = ArgumentY.Text;
-                Properties.Settings.Default.Save();
-            }
-            else if (ArgumentY.Text == "")
+            Properties.Settings.Default.Arg5 = ArgumentY.Text;
+            if (ArgumentY.Text == "")
             {
                 Properties.Settings.Default.Arg5 = "2";
-                Properties.Settings.Default.Save();
             }
-            else Growl.Warning("Wprowadzono niepoprawną wartość argumentu!");
+           // Properties.Settings.Default.Save();
         }
     }
+    
 }
