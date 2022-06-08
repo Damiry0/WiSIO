@@ -70,7 +70,7 @@ namespace WiSIO_App.Pages
                         client.Disconnect();
                     }
 
-                    WebBrowser.Source = new Uri("http://192.168.1.14:8000/index.html");
+                    WebBrowser.Source = new Uri("http://192.168.43.209:8000/index.html"); //get rasp ip
                     WebBrowser.Reload();
                     TurnOnOffButton.Content = "Wyłącz Podgląd";
                     serverStatus = false;

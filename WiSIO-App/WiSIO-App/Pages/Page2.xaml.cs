@@ -36,17 +36,17 @@ namespace WiSIO_App.Pages
                 using (var client = new SshClient(Properties.Settings.Default.ip, Properties.Settings.Default.login, Properties.Settings.Default.password))
                 {
                     client.Connect();
-                    client.RunCommand("python3 -u make_photo.py");
+                    client.RunCommand("raspistill -o /tmp/picture.png");
                     client.Disconnect();
                 }
                 Directory.CreateDirectory(@ProjectSourcePath.Value + "tmp");
-                var path = ProjectSourcePath.Value + "tmp\\picture" + DateTime.Now.ToString("h-mm-ss") +".jpg";
+                var path = ProjectSourcePath.Value + "tmp\\picture" + DateTime.Now.ToString("h-mm-ss") +".png";
                 using (var client = new ScpClient(Properties.Settings.Default.ip, Properties.Settings.Default.login, Properties.Settings.Default.password))
                 {
                     client.Connect();
                     using (Stream localFile = File.Create(path))
                     {
-                        client.Download("/tmp/picture.jpg", localFile);
+                        client.Download("/tmp/picture.png", localFile);
                     }
                     client.Disconnect();
                 }
