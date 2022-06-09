@@ -227,48 +227,53 @@ for i in range(howDeep):
 Image1 = Image.open(source_image)
 Image1copy = Image1.copy()
 
-w_tile = abs(list_of_frames[0].offset[0] - list_of_frames[0].offset[2])
-h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
 
-print("Tile width", w_tile,flush=True)
-print("Tile height", h_tile,flush=True)
-value = [255, 0, 255]
+# fault has been found
+if(len(list_of_frames)>0):
+    w_tile = abs(list_of_frames[0].offset[0] - list_of_frames[0].offset[2])
+    h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
 
-border_hor_size = int((2*5*Image1.size[0]*Image1.size[1])/4410944)
-border_ver_size = border_hor_size
-grid_size = int((2*1*Image1.size[0]*Image1.size[1])/4410944)
+    print("Tile width", w_tile,flush=True)
+    print("Tile height", h_tile,flush=True)
+    value = [255, 0, 255]
+
+    border_hor_size = int((2*5*Image1.size[0]*Image1.size[1])/4410944)
+    border_ver_size = border_hor_size
+    grid_size = int((2*1*Image1.size[0]*Image1.size[1])/4410944)
 
 
-for square in list_of_frames:
-    pos = []
-    for item in list_of_frames:
-        flag = check_adjacent(w_tile, h_tile, square.offset[0], item.offset[0], square.offset[1], item.offset[1])
-        if flag[0] != '0':
-            pos.append(flag[1])
-            if flag[2]!='0':
-                pos.append(flag[3])
-        elif flag[0] == '0' and flag[1] !='0':
-            pos.append(flag[2])
-    # size (width of line) of the fault tile border
-    border_right = border_ver_size
-    border_left = border_ver_size
-    border_top = border_hor_size
-    border_bottom = border_hor_size
-    if 'R' in pos:
-         border_right = grid_size
-    if 'L' in pos:
-         border_left = grid_size
-    if 'T' in pos:
-         border_top = grid_size
-    if 'B' in pos:
-         border_bottom = grid_size
+    for square in list_of_frames:
+        pos = []
+        for item in list_of_frames:
+            flag = check_adjacent(w_tile, h_tile, square.offset[0], item.offset[0], square.offset[1], item.offset[1])
+            if flag[0] != '0':
+                pos.append(flag[1])
+                if flag[2]!='0':
+                    pos.append(flag[3])
+            elif flag[0] == '0' and flag[1] !='0':
+                pos.append(flag[2])
+        # size (width of line) of the fault tile border
+        border_right = border_ver_size
+        border_left = border_ver_size
+        border_top = border_hor_size
+        border_bottom = border_hor_size
+        if 'R' in pos:
+             border_right = grid_size
+        if 'L' in pos:
+             border_left = grid_size
+        if 'T' in pos:
+             border_top = grid_size
+        if 'B' in pos:
+             border_bottom = grid_size
 
-    src = imread(square.tilefname, IMREAD_COLOR)
-    dst = copyMakeBorder(src, border_top, border_bottom, border_left, border_right, BORDER_CONSTANT, None, value)
-    imwrite(square.tilefname, dst)
-    temp_img = Image.open(square.tilefname)
+        src = imread(square.tilefname, IMREAD_COLOR)
+        dst = copyMakeBorder(src, border_top, border_bottom, border_left, border_right, BORDER_CONSTANT, None, value)
+        imwrite(square.tilefname, dst)
+        temp_img = Image.open(square.tilefname)
 
-    Image1copy.paste(temp_img, (square.offset[0] - border_left, square.offset[1] - border_top))
+        Image1copy.paste(temp_img, (square.offset[0] - border_left, square.offset[1] - border_top))
+else:
+    print('No faults found.')
 
 Image1copy.save("final_board.png")
 
