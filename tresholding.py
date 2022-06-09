@@ -10,7 +10,7 @@
 # USER_PARAM_7 - divider of image height (Y axis) <type int> - default '2'
 #
 # Executing:
-# tresholding.py dobra_wycieta.png zla_wycieta.png 3 0.02 0.06 2 2
+# tresholding.py 'dobra_wycieta.png' 'zla_wycieta.png' 3 0.02 0.06 2 2
 #
 # Program saves output file with faults as 'final_board.png' in boards directory
 
