@@ -31,9 +31,9 @@ application_path = os.path.dirname(sys.executable)
 os.chdir(application_path + '\\boards')
 
 if __name__ == "__main__":
-    print(f"Arguments count: {len(sys.argv)}",flush=True)
+    print(f"Arguments count: {len(sys.argv)}", flush=True)
     for i, arg in enumerate(sys.argv):
-        print(f"Argument {i:>8}: {arg}",flush=True)
+        print(f"Argument {i:>8}: {arg}", flush=True)
 
 
 # checking if there is an output folder to stash the tiles in, if not, creating one
@@ -75,8 +75,8 @@ def tile(filename, dir_out, tile_list, div_w=10, div_h=10, offset=(0, 0, 0, 0)):
     w_tile = int(w/div_w)
     h_tile = int(h/div_h)
     k = 0
-    print("Pixel loss: h, h_tile, h % h_tile", h, h_tile, h % h_tile,flush=True)
-    print("Pixel loss: w, w_tile, w % w_tile", w, w_tile, w % w_tile,flush=True)
+    print("Pixel loss: h, h_tile, h % h_tile", h, h_tile, h % h_tile, flush=True)
+    print("Pixel loss: w, w_tile, w % w_tile", w, w_tile, w % w_tile, flush=True)
 
     grid = product(range(0, h - h % h_tile, h_tile), range(0, w - w % w_tile, w_tile))
     for i, j in grid:
@@ -150,10 +150,10 @@ def needle_in_hay_stack(haystack_name, number_of_photos, list_of_tiles, threshol
         locations1 = list(zip(*locations1[::-1]))
 
         if locations1:
-            print('Found needle.',flush=True)
+            print('Board fault not found.', flush=True)
             list_of_tiles.remove(list_of_bundles[i])
         else:
-            print('Needle not found.',flush=True)
+            print('Bord fault found.', flush=True)
 
 
 # list of errors to display
@@ -168,7 +168,7 @@ input_image = sys.argv[2]     # USER PARAM
 
 '''Dividing into tiles'''
 number_of_tiles = tile(source_image, os.getcwd() + r'\output\\', list_of_frames, div_w=5, div_h=5)
-print(range(number_of_tiles),flush=True)
+print(range(number_of_tiles), flush=True)
 # list of images to delete
 list_of_all_frames = list_of_frames.copy()
 
@@ -218,7 +218,7 @@ for i in range(howDeep):
     # changing list of frames
     for item in deep_list_of_frames:
         item.tilefname = 'output\\' + item.tilefname.split('\\')[-1]
-        print(item.tilefname,flush=True)
+        print(item.tilefname, flush=True)
 
     list_of_frames = deep_list_of_frames.copy()
     deep_list_of_frames = []
@@ -233,8 +233,8 @@ if(len(list_of_frames)>0):
     w_tile = abs(list_of_frames[0].offset[0] - list_of_frames[0].offset[2])
     h_tile = abs(list_of_frames[0].offset[1] - list_of_frames[0].offset[3])
 
-    print("Tile width", w_tile,flush=True)
-    print("Tile height", h_tile,flush=True)
+    print("Tile width", w_tile, flush=True)
+    print("Tile height", h_tile, flush=True)
     value = [255, 0, 255]
 
     border_hor_size = int((2*5*Image1.size[0]*Image1.size[1])/4410944)
