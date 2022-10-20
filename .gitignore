@@ -269,5 +269,5 @@ $RECYCLE.BIN/
 _NCrunch*
 WiSIO-App/.vs/WiSIO-App/DesignTimeBuild/.dtbcache.v2
 WiSIO-App/.vs/WiSIO-App/v17/.futdcache.v1
-*.png
-*.jpg
+#*.png
+#*.jpg
