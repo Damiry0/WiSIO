@@ -1,8 +1,3 @@
----
-bibliography:
-- sample.bib
----
-
 # **WiSIO - Wizyjny System Inspekcji Obwodów**
 
 Dokumentacja projektu
